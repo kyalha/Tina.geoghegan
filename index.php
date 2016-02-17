@@ -4,7 +4,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="style/index.css" type="text/css">
 		<link href='https://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
-
+		<script src="js/main.js"></script>
 	</head>
 	<body>
 	<header>
@@ -12,27 +12,25 @@
 				  <p class="title"> Christina Geoghegan </p>
 				  <ul class= "menu">
 				    <li> 
-				    	<a href="/" class="underline">Home</a>
+				    	<a href="/" class="underline" id="home">Home</a>
 				    </li>
 				    <li>
-				        <a href="/print" class="underline">Portfolio</a>
+				        <a href="/print" class="underline" id="portfolio">Portfolio</a>
 				    </li>
 				    <li>
-				        <a href="/web" class="underline">Exhibition</a>
+				        <a href="/web" class="underline" id="exhibition">Exhibition</a>
 				    </li>
 				    <li>
-				        <a href="/bio" class="underline">Biography</a>
+				        <a href="/bio" class="underline" id="biography">Biography</a>
 				    </li>
 				    <li>
-				        <a href="/contact" class="underline">Contact</a>
+				        <a href="/contact" class="underline" id="contact">Contact</a>
 				    </li>
 				  </ul>
 				
 		</nav>
 	</header>
-		<div class="wrapper">
-			<aside>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-			</aside>	
+		<div class="container">
 			<section class="main">
 			</section>
 		</div>

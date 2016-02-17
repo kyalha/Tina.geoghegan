@@ -1,0 +1,9 @@
+CREATE DATABASE TINAGEO;
+USE TINAGEO;
+mysql -h host -user -p TINAGEO;
+SET PASSWORD ilovethemist;
+
+CREATE TABLE admin {
+	adminID VARCHAR(30) NOT NULL PRIMARY KEY,
+	password VARCHAR(30) NOT NULL
+}

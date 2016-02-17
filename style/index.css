@@ -28,6 +28,7 @@ header {
 	width: 100%;
 	height: 15%;
 	max-height: 80px;
+  border: 1px solid white;
 }
 nav, aside {
 	padding-left: 50px;
@@ -74,13 +75,11 @@ nav ul {
 
 nav li {
   float: left;
-  width: 20%;
+  width: 200px;
 }
 
 nav a {
   position: relative;
-}
-nav a:hover {
 }
 
 .underline:after {
@@ -94,17 +93,20 @@ nav a:hover {
   content: "";
   transition: width 0.2s;
 }
-.underline:hover:after {
+.underline:hover:after{
   width: 100%;
 }
 /* ====================== Main content ================= */
-.wrapper {
+.container {
 	order: 2;
 	display: flex;
 	flex-direction: row;
-	max-height: 100%;
+  border:1px solid white;
+  width: 100%;
+	height: 65%;
 }
 aside {
+  border: 1px solid white;
 	order:1;
 	width:14%;
 	padding: 1%;
@@ -116,7 +118,7 @@ aside {
 
 .main {
 	order:2;
-	width: 84%;
+  border: 1px solid white;
 }
 /*.main {
 	background: url(../images/wrapper.png) no-repeat fixed; 
@@ -129,27 +131,27 @@ aside {
 */
 
 /* ====================== Animation of background picture ================= */
+/*
 @keyframes AutoSlide {
     0% {
-        left: 0px; /*1ère image*/
+        left: 0px; 
     }
     15% {
-        left: 0px; /*idem pour attente*/
+        left: 0px; 
     }
     35% {
-        left: -35%; /*2ème image*/
+        left: -35%; 
     }
     50% {
-        left: -50%; /*idem pour attente*/
+        left: -50%; 
     }
     70% {
-        left: -70%; /*3ème image*/
+        left: -70%; 
     }
     85% {
-        left: -95%; /*idem pour attente*/
+        left: -95%; 
     }
     100% {
-        left: 0px; /*1ère image*/
     }
 }
 #slideshow {
@@ -165,14 +167,16 @@ aside {
 }
 #sContent {
     position: absolute;
-    /*CSS3 keyframes animation*/
+    /*CSS3 keyframes animation*//*
     animation-name: AutoSlide;
     animation-duration: 10s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
 }
+*/
 /* ====================== footer ================= */
 footer  { 
+  border: 1px solid white;
 	order: 3;
 	max-height: 50px;
 	text-align: center;
@@ -184,6 +188,8 @@ footer  {
 	font-size:1.1em;
 	display: flex;
 	justify-content: center;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
 }
 footer .icon {
 	height:30px;
