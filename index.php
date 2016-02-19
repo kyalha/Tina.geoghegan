@@ -31,8 +31,14 @@
 		</nav>
 	</header>
 		<div class="container">
+			<aside>
+					<button class="option" onclick="selectPasswordOption()">Change password</button>
+					<button class="option" onclick="selectGalleryOption()">Check gallery</button>
+			</aside>
+			
 			<section class="main">
 			</section>
+
 		</div>
 		<footer>
 			 	<a href="/bio"><img src="images/fb.png" class="icon element"></a>

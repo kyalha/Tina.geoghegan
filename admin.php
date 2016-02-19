@@ -4,7 +4,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="style/index.css" type="text/css">
 		<link href='https://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
-		<script type="text/javascript" src="js/main.js"></script>
 	</head>
 	<body>
 	<header>
@@ -39,12 +38,12 @@
 					<button class="option" onclick="selectGalleryOption()">Check gallery</button>
 
 			</aside>
-			<section class="main">
+			<section class="main" id="main">
+
 				<div class="selectFile">
 					<input type="file" id="files" name="files[]" multiple class="selectInput"/>
 					<output id="list"></output>
 				</div>
-
 
 				<div id="drop_zone">Drop files here</div>
 
@@ -57,4 +56,5 @@
 				<p>Christina Geoghegan - 2016</p>
 		</footer>
 	</body>
+	<script type="text/javascript" src="js/main.js" language="JavaScript"></script>
 </html>
