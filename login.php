@@ -1,3 +1,7 @@
+<?php
+	session_start();
+	include('controller.php');
+?>
 <!DOCTYPE html>
 	<head>
 		<title>Christina Geoghegan</title>
@@ -5,6 +9,7 @@
 		<link rel="stylesheet" href="style/index.css" type="text/css">
 		<link href='https://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
 		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/dropzone.js"></script>
 	</head>
 	<body>
 	<header>
@@ -35,20 +40,16 @@
 	</header>
 		<div class="container">
 			<aside>
-					<button class="option" onclick="selectPasswordOption()">Change password</button>
-					<button class="option" onclick="selectGalleryOption()">Check gallery</button>
-
 			</aside>
-			<section class="main">
-				<div class="selectFile">
-					<input type="file" id="files" name="files[]" multiple class="selectInput"/>
-					<output id="list"></output>
-				</div>
-
-
-				<div id="drop_zone">Drop files here</div>
-
-				<span><?php echo $error; ?></span>
+			<section class="main" id="main">
+						<form action="" class="connect" post="submit" action="controller.php">
+						  <label for="admin">Admin</label>
+						  <input type="text" placeholder="admin"><br>
+							<label for="password">Password</label>
+						  <input type="password" name="newPassword" placeholder="********"><br>
+							<button type="submit" name="login">Login </button>
+								<span><?php echo $error; ?></span>
+						</form>
 			</section>
 		</div>
 		<footer>

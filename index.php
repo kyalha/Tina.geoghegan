@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 	<head>
 		<title>Christina Geoghegan</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -11,7 +11,7 @@
 		<nav class="navbar shadow">
 				  <p class="title"> Christina Geoghegan </p>
 				  <ul class= "menu">
-				    <li> 
+				    <li>
 				    	<a href="/" class="underline" id="home">Home</a>
 				    </li>
 				    <li>
@@ -27,7 +27,7 @@
 				        <a href="/contact" class="underline" id="contact">Contact</a>
 				    </li>
 				  </ul>
-				
+
 		</nav>
 	</header>
 		<div class="container">
@@ -41,4 +41,3 @@
 		</footer>
 	</body>
 </html>
-
