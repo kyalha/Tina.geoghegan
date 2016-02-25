@@ -6,13 +6,70 @@
 	}
 
 		function selectPasswordOption(){
+			document.getElementById('contentPortfolio').style.display = 'none';
 			document.getElementById('changePassword').style.display = 'inline';
-			document.getElementById('handleFile').style.display = 'none';
+			document.getElementById('contentExhibition').style.display = 'none';
+			document.getElementById('contentBiography').style.display = 'none';
 		}
 
-	function selectGalleryOption() {
+	function selectPortfolioOption() {
 		document.getElementById('changePassword').style.display = 'none';
-		document.getElementById('handleFile').style.display = 'inline';
+		document.getElementById('contentPortfolio').style.display = 'inline';
+		document.getElementById('contentExhibition').style.display = 'none';
+		document.getElementById('contentBiography').style.display = 'none';
+	}
+
+	function selectExhibitionOption() {
+		document.getElementById('changePassword').style.display = 'none';
+		document.getElementById('contentPortfolio').style.display = 'none';
+		document.getElementById('contentExhibition').style.display = 'inline';
+		document.getElementById('contentBiography').style.display = 'none';
+	}
+	function selectBiographyOption() {
+		document.getElementById('changePassword').style.display = 'none';
+		document.getElementById('contentPortfolio').style.display = 'none';
+		document.getElementById('contentExhibition').style.display = 'none';
+		document.getElementById('contentBiography').style.display = 'inline';
+	}
+
+
+	function checkAll() {
+	  var checkboxes = document.getElementsByName('checkFile');
+		for (var i = 0; i < checkboxes.length; i++) {
+			checkboxes[i].checked  = true;
+		}
+	}
+	function uncheckAll() {
+	  var checkboxes = document.getElementsByName('checkFile');
+		for (var i = 0; i < checkboxes.length; i++) {
+			checkboxes[i].checked  = false;
+		}
+	}
+
+	function addContentSave(){
+	document.getElementById('contentAddFolder').style.display = 'inline';
+	document.getElementById('contentUpdateFolder').style.display = 'none';
+}
+
+	function addContentUpdate(){
+		document.getElementById('contentUpdateFolder').style.display = 'inline';
+		document.getElementById('contentAddFolder').style.display = 'none';
+		}
+	function deleteFolder(){
+		var selectorDir = document.getElementById("selectDirectory");
+		var folderSelected = selectorDir.options[selectorDir.selectedIndex].value;
+		alert('Are you sure that you want to delete this folder '+ folderSelected +' and all the images contained within?');
+	}
+	function saveFolder(){
+		var xhttp = new XMLHttpRequest();
+		var data = "folderName="+document.getElementById('folderNameToSave').value;
+		xhttp.open("POST", "http://localhost/Tina.geoghegan/controller.php", true);
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+			 console.log("finish");
+			}
+		};
+	  xhttp.send(data);
 	}
 
 	function displayImages() {
@@ -34,13 +91,10 @@
 		}
 	}
 
-
 	function handleFileSelect(evt) {
 		evt.stopPropagation();
 		evt.preventDefault();
-
 		var files = evt.dataTransfer.files; // FileList object.
-
 		// files is a FileList of File objects. List some properties.
 		var output = [];
 		for (var i = 0, f; f = files[i]; i++) {
@@ -58,9 +112,13 @@
 		evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
 	}
 
-document.addEventListener('DOMLoaded',function(){
+document.addEventListener('DOMContentLoaded',function(){
 	var dropZone = document.getElementById('drop_zone');
 	dropZone.addEventListener('dragover', handleDragOver, false);
 	dropZone.addEventListener('drop', handleFileSelect, false);
 
 },false);
+
+function saveHTMLContent(){
+
+}

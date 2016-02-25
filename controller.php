@@ -6,17 +6,36 @@ $dbname = "tinageo";
 $con=mysqli_connect($servername,$username,$password,$dbname);
 if (mysqli_connect_errno($con))
 {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
   return false;
 }
 $select_folders = "select * from folder;";
 $result_folders = mysqli_query($con,$select_folders);
-
 $select_images = "select * from image;";
 $result_images = mysqli_query($con,$select_images);
+$error='';
+
+$servername = "localhost";
+$username = "root";
+$password = "root";
+$dbname = "tinageo";
+$con=mysqli_connect($servername,$username,$password,$dbname);
+if (mysqli_connect_errno($con))
+{
+  return false;
+}
+
+if(isset($_POST['folderNameToSave'])){
+  echo "string";
+}
+$nameFolder = $_POST['folderNameToSave'];
+echo $nameFolder . 'yeah';
+if(!empty($nameFolder)){
+  echo "string";
+    $sql="insert into folder(id) values('" . $nameFolder ."');";
+    $query = mysqli_query($con,$sql);
+}
 
 
-	$error='';
 	if (isset($_POST['changePassword'])) {
 		if (empty($_POST['oldPassword']) || empty($_POST['newPassword'] ||
 					empty($_POST("confirmNew")) )) {
@@ -27,14 +46,7 @@ $result_images = mysqli_query($con,$select_images);
 			$error = "Your password is similar to the new one.";
 		}
 	else{
-		//================= identifications for database =================
-		$servername = "localhost";
-		$username = "root";
-		$password = "mysqlitt12345";
-		$dbname = "appointment_db";
-		//================= Create connection =================
 		$link = mysqli_connect($servername, $username, $password, $dbname);
-		/* ===========   To protect MySQL injection for Security purpose ==================*/
 		$value_user = stripslashes($value_user);
 		$value_password = stripslashes($value_password);
 		$value_user = mysqli_real_escape_string($link,$value_user);
