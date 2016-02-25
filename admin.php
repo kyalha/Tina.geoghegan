@@ -38,44 +38,33 @@
 	</header>
 		<div class="container">
 			<aside>
-					<button class="option" onclick="selectPasswordOption()">Edit password</button>
 					<button class="option" onclick="selectPortfolioOption()">Edit Portfolio</button>
 					<button class="option" onclick="selectExhibitionOption()">Edit Exhibition</button>
 					<button class="option" onclick="selectBiographyOption()">Check Biography</button>
 			</aside>
 			<section class="main" id="rightContent">
-				<form class='changePassword' id='changePassword'>
-					<h1>Edit Password</h1>
-					<label for='oldPassword'>Old password</label>
-					<input type='password' name='oldPassword' placeholder='********'><br>
-					<label for='newPassword'>New password</label>
-					<input type='password' name='newPassword' placeholder='********'><br>
-					<label for='confirmNew'>Confirm new password</label>
-					<input type='password' name='confirmNew' placeholder='********'><br>
-					<button type='button'>Change password </button>
-				</form>
-				<div class='contentPortfolio' id='contentPortfolio' style='display:none'>
+				<div class='contentPortfolio' id='contentPortfolio' style='display:inline'>
 					<h1>Edit Portfolio</h1>
 					<form class='editFolder' id='editFolder'>
 						<p> Folder: </p>
-						<select class="selectDirectory" id="selectDirectory" onchange="displayImages()">
+						<select class="selectDirectory" name="selectDirectory" id="selectDirectory" onchange="displayImages()">
 							<?php
 								$first_folder = "";
 								while($res_fol = $result_folders->fetch_row()){
-									echo '<option>'. $res_fol[1]. '</option>';
+									echo '<option value="'.$res_fol[1] .'">'. $res_fol[1]. '</option>';
 								 } ?>
 						</select>
 						<button type='button' onclick="addContentSave()">+</button>
 						<button type='button' onclick='addContentUpdate()' id='update'>update</button>
-						<button type='button' onclick='deleteFolder()' id='delete'>delete</button>
+						<button type='button' id='delete' onclick="if(confirm('Are you sure you want to delete this folder and all files contained within?')){deleteFolder()}">delete</button>
 						<div class='contentAddFolder' id='contentAddFolder' style='display:none'>
 							<label for="folderNameToSave">Folder name:</label>
 							<input type="text" id="folderNameToSave" placeholder="new folder"></input>
 							<button type="button" id="saveFolderID" onclick="saveFolder()">Save folder</button>
 						</div>
 						<div class='contentUpdateFolder' id='contentUpdateFolder' style='display:none'>
-							<label for="folderNameToUpdate">Folder name:</label>
-							<input type="text" id="folderNameToUpdate" placeholder="new folder"></input>
+							<label for="folderNameToUpdate">New folder name:</label>
+							<input type="text" id="newFolderToUpdate" placeholder="new folder"></input>
 							<button type="button" id="updateFolderID" onclick="updateFolder()">Update folder</button>
 						</div>
 					</form>
@@ -117,12 +106,14 @@
 					</div>
 				</div>
 				<form class='contentExhibition' id='contentExhibition' style='display:none'>
-					<h1>Edit Exhibitiom</h1>
+					<h1>Edit Exhibition</h1>
 					 <textarea class="ckeditor" id="exhibitionID" rows="5" cols="15"></textarea>
+					 <button type="button" id="updateExhibitionID" onclick="updateExhibition()">Update Exhibition</button>
 				</form>
 				<form class='contentBiography' id='contentBiography' style='display:none'>
 					<h1>Edit Biography</h1>
 					 <textarea class="ckeditor" id="biographyID" rows="5" cols="15"></textarea>
+					 <button type="button" id="updateBiographyID" onclick="updateBiography()">Update Biography</button>
 				</form>
 				<span><?php echo $error; ?></span>
 			</section>

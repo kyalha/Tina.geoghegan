@@ -7,26 +7,22 @@
 
 		function selectPasswordOption(){
 			document.getElementById('contentPortfolio').style.display = 'none';
-			document.getElementById('changePassword').style.display = 'inline';
 			document.getElementById('contentExhibition').style.display = 'none';
 			document.getElementById('contentBiography').style.display = 'none';
 		}
 
 	function selectPortfolioOption() {
-		document.getElementById('changePassword').style.display = 'none';
 		document.getElementById('contentPortfolio').style.display = 'inline';
 		document.getElementById('contentExhibition').style.display = 'none';
 		document.getElementById('contentBiography').style.display = 'none';
 	}
 
 	function selectExhibitionOption() {
-		document.getElementById('changePassword').style.display = 'none';
 		document.getElementById('contentPortfolio').style.display = 'none';
 		document.getElementById('contentExhibition').style.display = 'inline';
 		document.getElementById('contentBiography').style.display = 'none';
 	}
 	function selectBiographyOption() {
-		document.getElementById('changePassword').style.display = 'none';
 		document.getElementById('contentPortfolio').style.display = 'none';
 		document.getElementById('contentExhibition').style.display = 'none';
 		document.getElementById('contentBiography').style.display = 'inline';
@@ -58,18 +54,57 @@
 	function deleteFolder(){
 		var selectorDir = document.getElementById("selectDirectory");
 		var folderSelected = selectorDir.options[selectorDir.selectedIndex].value;
-		alert('Are you sure that you want to delete this folder '+ folderSelected +' and all the images contained within?');
-	}
-	function saveFolder(){
+		//alert('Are you sure that you want to delete this folder '+ folderSelected +' and all the images contained within?');
 		var xhttp = new XMLHttpRequest();
-		var data = "folderName="+document.getElementById('folderNameToSave').value;
-		xhttp.open("POST", "http://localhost/Tina.geoghegan/controller.php", true);
+		var data = "selectDirectory="+folderSelected+"&toDelete=yes";
+		xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
 			 console.log("finish");
 			}
 		};
 	  xhttp.send(data);
+	}
+	function saveFolder(){
+		var xhttp = new XMLHttpRequest();
+		var data = "folderNameToSave="+document.getElementById('folderNameToSave').value;
+		xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+			 console.log("finish");
+			}
+		};
+	  xhttp.send(data);
+	}
+	function updateFolder(){
+		var xhttp = new XMLHttpRequest();
+		var selectorDir = document.getElementById("selectDirectory");
+		var folderSelected = selectorDir.options[selectorDir.selectedIndex].value;
+		var data = "newFolderToUpdate="+document.getElementById('newFolderToUpdate').value+ "&selectDirectory="+folderSelected;
+		xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+			 console.log("finish");
+			}
+		};
+		xhttp.send(data);
+	}
+
+	function updateExhibition(){
+		var xhttp = new XMLHttpRequest();
+		var newText = document.getElementById("exhibitionID");
+		var data = "exhibitionID="+newText;
+		xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+			 console.log("finish");
+			}
+		};
+		xhttp.send(data);
 	}
 
 	function displayImages() {
