@@ -18,10 +18,10 @@
 				    	<a href="/" class="underline" id="home">Home</a>
 				    </li>
 				    <li>
-				        <a href="/print" class="underline" id="portfolio">Portfolio</a>
+				        <a href="/print" class="underline" id="work">Work</a>
 				    </li>
 				    <li>
-				        <a href="/web" class="underline" id="exhibition">Exhibition</a>
+				        <a href="/web" class="underline" id="cv">C.V</a>
 				    </li>
 				    <li>
 				        <a href="/bio" class="underline" id="biography">Biography</a>
@@ -97,10 +97,15 @@
 					<div class='handleFiles' id='handleFile'>
 						<div class="thumbImages" id='thumb'>
 								<div class="selectFile" id='selectFile'>
-									<input type="file" id="files" name="files[]" multiple class="selectInput"/>
 									<div id="drop_zone">Drop files here</div>
 									<output id="list" class='output'></output>
-									<button type='button'>Save files</button>
+									<div id="addingFileInfo" style="display:none;">
+										<label for="fileName">Folder name:</label>
+										<input type="text" id="fileName" placeholder="file name"></input>
+										<label for="fileDescription">Description:</label>
+										<textarea rows="4" cols="50" id="fileDescription" placeholder="description..."></textarea>
+									</div>
+									<button type='button' onclick="saveFiles()">Save files</button>
 								</div>
 						</div>
 					</div>

@@ -1,10 +1,9 @@
+var selectedFiles = '';
+		function getMenuSelected (){
+			var url = window.location.href;
+			var page= url.slice(url.lastIndexOf('/')+1, url.length-4);
 
-	function getMenuSelected (){
-		var url = window.location.href;
-		var page= url.slice(url.lastIndexOf('/')+1, url.length-4);
-
-	}
-
+		}
 		function selectPasswordOption(){
 			document.getElementById('contentPortfolio').style.display = 'none';
 			document.getElementById('contentExhibition').style.display = 'none';
@@ -56,7 +55,7 @@
 		var folderSelected = selectorDir.options[selectorDir.selectedIndex].value;
 		//alert('Are you sure that you want to delete this folder '+ folderSelected +' and all the images contained within?');
 		var xhttp = new XMLHttpRequest();
-		var data = "selectDirectory="+folderSelected+"&toDelete=yes";
+		var data = "selectDirectory="+folderSelected+"&toDelete=true";
 		xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.onreadystatechange = function() {
@@ -129,22 +128,25 @@
 	function handleFileSelect(evt) {
 		evt.stopPropagation();
 		evt.preventDefault();
-		var files = evt.dataTransfer.files; // FileList object.
-		// files is a FileList of File objects. List some properties.
+		var files = evt.dataTransfer.files;
 		var output = [];
 		for (var i = 0, f; f = files[i]; i++) {
+			selectedFiles = escape(f.name);
 			output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
 									f.size, ' bytes, last modified: ',
 									f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
 									'</li>');
 		}
 		document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+		document.getElementById('addingFileInfo').style.display='inline';
+
 	}
 
 	function handleDragOver(evt) {
 		evt.stopPropagation();
 		evt.preventDefault();
 		evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+
 	}
 
 document.addEventListener('DOMContentLoaded',function(){
@@ -153,6 +155,24 @@ document.addEventListener('DOMContentLoaded',function(){
 	dropZone.addEventListener('drop', handleFileSelect, false);
 
 },false);
+
+function saveFiles(){
+	var xhttp = new XMLHttpRequest();
+	var selectorDir = document.getElementById("selectDirectory");
+	var folderSelected = selectorDir.options[selectorDir.selectedIndex].value;
+	var fileName = document.getElementById("fileName").value;
+	var description = document.getElementById("fileDescription").value;
+	var data = "insertFiles=true&selectorDir="+folderSelected+"&fileName="+fileName+"&description="+description;
+	alert(data);
+	xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+		 console.log("saveFiles");
+		}
+	};
+	xhttp.send(data);
+}
 
 function saveHTMLContent(){
 

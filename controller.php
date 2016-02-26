@@ -18,18 +18,37 @@ if (mysqli_connect_errno($con))
   return false;
 }
 
-$folderNameToSave = $_POST['folderNameToSave'];
-if(!empty($folderNameToSave) && $folderNameToSave != ''){
-    $check_nameFolder="select * from folder where name = '".  $folderNameToSave ."');";
-    $result_check= mysqli_query($con,$check_nameFolder);
-    if (mysqli_num_rows($result_check) == 1) {
-      $error = 'A folder exist already with this name';
-     }
-    else {
-      $insert_folder="insert into folder(name) values('" . $folderNameToSave ."');";
-      $result_insertFolder= mysqli_query($con,$insert_folder);
-    }
+if(isset($_POST['insertFiles'])){
+  $folder = $_POST['selectorDir'];
+  $fileName = $_POST['fileName'];
+  $description = $_POST['description'];
+  $uploaddir = "/images/gallery/".$folder+"/";
+  $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
+  $insert_images="insert into image(folder,path,name) values('".$folder ."', 'images/gallery/". $fileName."','".$fileName."','".$description."');";
+  $result_insertImages= mysqli_query($con,$insert_images);
+
+    if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+
+
+  }
 }
+
+if(isset($_POST['folderNameToSave'])){
+  $folderNameToSave = $_POST['folderNameToSave'];
+  if(!empty($folderNameToSave) && $folderNameToSave != ''){
+      $check_nameFolder="select * from folder where name = '".  $folderNameToSave ."');";
+      $result_check= mysqli_query($con,$check_nameFolder);
+      if (mysqli_num_rows($result_check) == 1) {
+        $error = 'A folder exist already with this name';
+       }
+      else {
+        $insert_folder="insert into folder(name) values('" . $folderNameToSave ."');";
+        $result_insertFolder= mysqli_query($con,$insert_folder);
+      }
+  }
+}
+
+if(isset($_POST['selectDirectory']) && isset($_POST['toDelete'])){
   $folderNameToDelete = $_POST['selectDirectory'];
   $toDelete = $_POST['toDelete'];
   if(!empty($folderNameToDelete) && $folderNameToDelete != '' && !empty($toDelete)){
@@ -40,70 +59,26 @@ if(!empty($folderNameToSave) && $folderNameToSave != ''){
         $result_deleteFolder= mysqli_query($con,$delete_folder);
        }
   }
+}
+
+if(isset($_POST['exhibitionID']))
   $exhibitionToUpdate = $_POST['exhibitionID'];
   if(!empty($exhibitionToUpdate) && $exhibitionToUpdate != ''){
         $update_exhib="update multimedia set content = '" . $exhibitionToUpdate ."' where id=exhibition;";
         $result_exhib= mysqli_query($con,$update_exhib);
   }
 
-$folderNameToUpdate = $_POST['selectDirectory'];
-$newFolder = $_POST['newFolderToUpdate'];
-if(!empty($newFolder) && $newFolder != ''){
-    $check_nameFolder="select * from folder where name = '".  $folderNameToUpdate ."');";
-    $result_check= mysqli_query($con,$check_nameFolder);
-    if (mysqli_num_rows($result_check) == 0) {
-      $update_folder="update folder set name = '" . $newFolder ."' where name ='".$folderNameToUpdate. "';";
-      $result_deleteFolder= mysqli_query($con,$update_folder);
-     }
+if(isset($_POST['selectDirectory']) && isset($_POST['newFolderToUpdate'])){
+  $folderNameToUpdate = $_POST['selectDirectory'];
+  $newFolder = $_POST['newFolderToUpdate'];
+  if(!empty($newFolder) && $newFolder != ''){
+      $check_nameFolder="select * from folder where name = '".  $folderNameToUpdate ."');";
+      $result_check= mysqli_query($con,$check_nameFolder);
+      if (mysqli_num_rows($result_check) == 0) {
+        $update_folder="update folder set name = '" . $newFolder ."' where name ='".$folderNameToUpdate. "';";
+        $result_deleteFolder= mysqli_query($con,$update_folder);
+       }
+  }
 }
-/*
-	if (isset($_POST['changePassword'])) {
-		if (empty($_POST['oldPassword']) || empty($_POST['newPassword'] ||
-					empty($_POST("confirmNew")) )) {
-			$error = "invalid password";
-		}else if($_POST['newPassword'] != $_POST['confirmNew']){
-			$error = "New password inserted is not the same.";
-		}else if($_POST['newPassword'] != $_POST['oldPassword']){
-			$error = "Your password is similar to the new one.";
-		}
-	else{
-		$value_user = stripslashes($value_user);
-		$value_password = stripslashes($value_password);
-		$value_user = mysqli_real_escape_string($link,$value_user);
-		$value_password = mysqli_real_escape_string($link,$value_password);
-	  $sql="select * from admin where username='$value_user' AND password='$value_password'";
 
-		$query = mysqli_query($link,$sql);
-		$error = mysqli_num_rows($query);	if (mysqli_num_rows($query) == 1) {
-				$_SESSION['username']= $value_user;  // Initializing Session with value of PHP Variable
-				} else {
-				$error = "Wrong administrator name or password";
-			}
-		mysqli_close($link); // Closing Connection
-		}
-	}
-	else if (isset($_POST['login'])) {
-		if (empty($_POST['admin']) || empty($_POST['password'])) {
-			$error = "invalid admin id or password";
-		}
-	else{
-		$admin = stripslashes($admin);
-		$value_password = stripslashes($value_password);
-		$admin = mysqli_real_escape_string($link,$admin);
-		$value_password = mysqli_real_escape_string($link,$value_password);
-$sql="select * from admin where username='$admin' AND password='$value_password'";
-
-		$query = mysqli_query($link,$sql);
-		$error = mysqli_num_rows($query);
-	if (mysqli_num_rows($query) == 1) {
-				$_SESSION['username']= $value_user;  // Initializing Session with value of PHP Variable
-				//header("location: connected.php"); // Redirecting To Other Page
-			} else {
-				$error = "Wrong administrator name or password";
-			}
-
-		mysqli_close($link); // Closing Connection
-		}
-	}
-*/
 ?>
