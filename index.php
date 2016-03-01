@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<html>
+<?php include 'controller.php'; ?>
 	<head>
 		<title>Christina Geoghegan</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -31,12 +33,18 @@
 		</nav>
 	</header>
 		<div class="container">
-			<aside>
-					<button class="option" onclick="selectPasswordOption()">Change password</button>
-					<button class="option" onclick="selectGalleryOption()">Check gallery</button>
+			<aside style="display:none;">
 			</aside>
 			
 			<section class="main">
+
+								<?php
+								/*
+								while($res_image = $result_images->fetch_row()){
+									echo '<img src="'.$res_image[1] .'">'. $res_image[1]. '</option>';
+								 } 
+								*/
+								 ?>
 			</section>
 
 		</div>

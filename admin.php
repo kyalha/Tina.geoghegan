@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
-<?php include 'controller.php';?>
+<?php 
+include 'controller.php';
+?>
 	<head>
 		<title>Christina Geoghegan</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -40,13 +42,13 @@
 			<aside>
 					<button class="option" onclick="selectPortfolioOption()">Edit Portfolio</button>
 					<button class="option" onclick="selectExhibitionOption()">Edit Exhibition</button>
-					<button class="option" onclick="selectBiographyOption()">Check Biography</button>
+					<button class="option" onclick="selectBiographyOption()">Edit Biography</button>
 			</aside>
 			<section class="main" id="rightContent">
 				<div class='contentPortfolio' id='contentPortfolio' style='display:inline'>
 					<h1>Edit Portfolio</h1>
 					<form class='editFolder' id='editFolder'>
-						<p> Folder: </p>
+						<label for="selectDirectory">Folder :</label>
 						<select class="selectDirectory" name="selectDirectory" id="selectDirectory" onchange="displayImages()">
 							<?php
 								$first_folder = "";
@@ -101,7 +103,7 @@
 									<div id="drop_zone">Drop files here</div>
 									<output id="list" class='output'></output>
 									<div id="addingFileInfo" style="display:none;">
-										<label for="fileName">Folder name:</label>
+										<label for="fileName">Title</label>
 										<input type="text" id="fileName" placeholder="file name"></input>
 										<label for="fileDescription">Description:</label>
 										<textarea rows="4" cols="50" id="fileDescription" placeholder="description..."></textarea>

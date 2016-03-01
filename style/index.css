@@ -9,23 +9,29 @@ html, body, header, div, span, h1, h2, h3, h4, h5, h6, p, img, ol, ul, li, form,
     background: transparent;
 }
 /* ====================== General ================= */
-html { 	height: 100%;
-	width:100%;}
+html { 	
+  height: 100%;
+	width:100%;
+  flex: 1;
+  display: flex;
+  }
 a { color: inherit; }
 div {
 	padding: 0;
 	margin: 0;
 }
 body {
+  width: inherit;
+  height: inherit;
 	display: flex;
  	flex-wrap: wrap;
 	background-color: #444444;
 	color:white;
+  flex-direction: column;
 }
 /* ====================== Nav bar ================= */
 header {
 	order: 1;
-	width: 100%;
   border: 1px solid white;
 }
 nav, aside {
@@ -98,7 +104,6 @@ li a {
 	flex-grow:3;
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
-  height: 500px;
 }
 aside {
   border: 1px solid white;
@@ -169,7 +174,6 @@ footer  {
 	order: 3;
 	text-align: center;
 	line-height: 50px;
-	width: 100%;
 	letter-spacing: .1em;
 	font-family: 'Calligraffitti', cursive;
 	font-size:1.1em;

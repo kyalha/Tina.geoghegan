@@ -1,4 +1,4 @@
-var selectedFiles = '';
+var selectedFile = '';
 		function getMenuSelected (){
 			var url = window.location.href;
 			var page= url.slice(url.lastIndexOf('/')+1, url.length-4);
@@ -60,7 +60,6 @@ var selectedFiles = '';
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
-			 console.log("finish");
 			}
 		};
 	  xhttp.send(data);
@@ -72,7 +71,6 @@ var selectedFiles = '';
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
-			 console.log("finish");
 			}
 		};
 	  xhttp.send(data);
@@ -86,7 +84,6 @@ var selectedFiles = '';
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
-			 console.log("finish");
 			}
 		};
 		xhttp.send(data);
@@ -100,7 +97,6 @@ var selectedFiles = '';
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
-			 console.log("finish");
 			}
 		};
 		xhttp.send(data);
@@ -124,14 +120,14 @@ var selectedFiles = '';
 				}
 		}
 	}
-
+/*
 	function handleFileSelect(evt) {
 		evt.stopPropagation();
 		evt.preventDefault();
 		var files = evt.dataTransfer.files;
 		var output = [];
 		for (var i = 0, f; f = files[i]; i++) {
-			selectedFiles = escape(f.name);
+			selectedFile = escape(f.name);
 			output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
 									f.size, ' bytes, last modified: ',
 									f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
@@ -155,16 +151,18 @@ document.addEventListener('DOMContentLoaded',function(){
 	dropZone.addEventListener('drop', handleFileSelect, false);
 
 },false);
-
+*/
 function saveFiles(){
 	var xhttp = new XMLHttpRequest();
 	var selectorDir = document.getElementById("selectDirectory");
+	var fileID = document.getElementById("fileID").value;
 	var folderSelected = selectorDir.options[selectorDir.selectedIndex].value;
 	var fileName = document.getElementById("fileName").value;
 	var description = document.getElementById("fileDescription").value;
 	var id = document.getElementById("fileToUpload").value;
 	var file = document.getElementById("fileToUpload");
 	var data = "insertFiles=true&selectorDir="+folderSelected+"&fileName="+fileName+"&description="+description+"&id="+id;
+
 	xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
 	//xhttp.setRequestHeader("Content-type", "multipart/form-data");
 
@@ -180,6 +178,45 @@ function saveFiles(){
 
 }
 
-function saveHTMLContent(){
+function updateExhibition(){
+	var content = CKEDITOR.instances.exhibitionID.getData();
+	var data = "exhibitionID="+content;
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+		}
+	};
+	alert(data);
+	xhttp.send(data);
 
 }
+function updateBiography(){
+	var content = CKEDITOR.instances.biographyID.getData();
+	var data = "biographyID="+content;
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+		 console.log("updateBiography");
+		}
+	};
+	xhttp.send(data);
+}
+
+var i = 0;
+var path = new Array();
+// LIST OF IMAGES
+path[0] = "image_1.gif";
+path[1] = "image_2.gif";
+path[2] = "image_3.gif";
+
+function swapImage()
+{
+   document.slide.src = path[i];
+   if(i < path.length - 1) i++; else i = 0;
+   setTimeout("swapImage()",3000);
+}
+window.onload=swapImage;
