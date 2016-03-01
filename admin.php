@@ -97,6 +97,7 @@
 					<div class='handleFiles' id='handleFile'>
 						<div class="thumbImages" id='thumb'>
 								<div class="selectFile" id='selectFile'>
+									 <input type="file" name="fileToUpload" id="fileToUpload">
 									<div id="drop_zone">Drop files here</div>
 									<output id="list" class='output'></output>
 									<div id="addingFileInfo" style="display:none;">

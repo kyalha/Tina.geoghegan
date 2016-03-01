@@ -19,19 +19,50 @@ if (mysqli_connect_errno($con))
 }
 
 if(isset($_POST['insertFiles'])){
+  error_log(print_r("blah"));
+
   $folder = $_POST['selectorDir'];
   $fileName = $_POST['fileName'];
   $description = $_POST['description'];
-  $uploaddir = "/images/gallery/".$folder+"/";
-  $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
+//  $uploaddir = "/images/gallery/".$folder+"/";
+
+
+  //$uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
   $insert_images="insert into image(folder,path,name) values('".$folder ."', 'images/gallery/". $fileName."','".$fileName."','".$description."');";
   $result_insertImages= mysqli_query($con,$insert_images);
 
-    if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
-
-
+  //if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+  //}
+///Applications/MAMP/htdocs/Tina.geoghegan/
+$target_dir = "images/gallery/";
+error_log(print_r($_FILES,true));
+$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$uploadOk = 1;
+$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+error_log(print_r(basename($_FILES["fileToUpload"]["name"])));
+    // Check if file already exists
+    if (file_exists($target_file)) {
+        echo "Sorry, file already exists.";
+        $uploadOk = 0;
+    }
+    // Allow certain file formats
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+    && $imageFileType != "gif" ) {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+    }
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+    // if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
   }
-}
 
 if(isset($_POST['folderNameToSave'])){
   $folderNameToSave = $_POST['folderNameToSave'];

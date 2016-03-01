@@ -162,16 +162,22 @@ function saveFiles(){
 	var folderSelected = selectorDir.options[selectorDir.selectedIndex].value;
 	var fileName = document.getElementById("fileName").value;
 	var description = document.getElementById("fileDescription").value;
-	var data = "insertFiles=true&selectorDir="+folderSelected+"&fileName="+fileName+"&description="+description;
-	alert(data);
+	var id = document.getElementById("fileToUpload").value;
+	var file = document.getElementById("fileToUpload");
+	var data = "insertFiles=true&selectorDir="+folderSelected+"&fileName="+fileName+"&description="+description+"&id="+id;
 	xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
-	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	//xhttp.setRequestHeader("Content-type", "multipart/form-data");
+
+	var formData = new FormData();
+	formData.append(fileName, file.files[0],fileName);
+	xhttp.send(formData);
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
-		 console.log("saveFiles");
+		 alert(xhttp.statusText);
 		}
 	};
-	xhttp.send(data);
+
+
 }
 
 function saveHTMLContent(){
