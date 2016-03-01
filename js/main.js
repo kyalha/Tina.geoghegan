@@ -27,6 +27,9 @@ var selectedFile = '';
 		document.getElementById('contentBiography').style.display = 'inline';
 	}
 
+	function displayFileInfo() {
+		document.getElementById('addingFileInfo').style.display = 'inline';
+	}
 
 	function checkAll() {
 	  var checkboxes = document.getElementsByName('checkFile');
@@ -120,42 +123,9 @@ var selectedFile = '';
 				}
 		}
 	}
-/*
-	function handleFileSelect(evt) {
-		evt.stopPropagation();
-		evt.preventDefault();
-		var files = evt.dataTransfer.files;
-		var output = [];
-		for (var i = 0, f; f = files[i]; i++) {
-			selectedFile = escape(f.name);
-			output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-									f.size, ' bytes, last modified: ',
-									f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-									'</li>');
-		}
-		document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-		document.getElementById('addingFileInfo').style.display='inline';
-
-	}
-
-	function handleDragOver(evt) {
-		evt.stopPropagation();
-		evt.preventDefault();
-		evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-
-	}
-
-document.addEventListener('DOMContentLoaded',function(){
-	var dropZone = document.getElementById('drop_zone');
-	dropZone.addEventListener('dragover', handleDragOver, false);
-	dropZone.addEventListener('drop', handleFileSelect, false);
-
-},false);
-*/
 function saveFiles(){
 	var xhttp = new XMLHttpRequest();
 	var selectorDir = document.getElementById("selectDirectory");
-	var fileID = document.getElementById("fileID").value;
 	var folderSelected = selectorDir.options[selectorDir.selectedIndex].value;
 	var fileName = document.getElementById("fileName").value;
 	var description = document.getElementById("fileDescription").value;
@@ -163,7 +133,7 @@ function saveFiles(){
 	var file = document.getElementById("fileToUpload");
 	var data = "insertFiles=true&selectorDir="+folderSelected+"&fileName="+fileName+"&description="+description+"&id="+id;
 
-	xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
+	xhttp.open("POST", "/Tina.geoghegan/controller.php?"+data, true);
 	//xhttp.setRequestHeader("Content-type", "multipart/form-data");
 
 	var formData = new FormData();
@@ -206,6 +176,7 @@ function updateBiography(){
 	xhttp.send(data);
 }
 
+/*
 var i = 0;
 var path = new Array();
 // LIST OF IMAGES
@@ -220,3 +191,4 @@ function swapImage()
    setTimeout("swapImage()",3000);
 }
 window.onload=swapImage;
+*/

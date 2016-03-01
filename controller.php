@@ -37,14 +37,14 @@ if(isset($_POST['insertFiles'])){
   //if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
   //}
 ///Applications/MAMP/htdocs/Tina.geoghegan/
-$target_dir = "images/gallery/";
+$target_dir = "Applications/MAMP/htdocs/Tina.geoghegan/images/gallery/";
 error_log(print_r($_FILES,true));
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 error_log(print_r(basename($_FILES["fileToUpload"]["name"])));
     // Check if file already exists
-    if (file_exists($target_file)) {
+   /* if (file_exists($target_file)) {
         echo "Sorry, file already exists.";
         $uploadOk = 0;
     }
@@ -58,25 +58,15 @@ error_log(print_r(basename($_FILES["fileToUpload"]["name"])));
     if ($uploadOk == 0) {
         echo "Sorry, your file was not uploaded.";
     // if everything is ok, try to upload file
-    } else {
+    } else {*/
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
             echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
         } else {
             echo "Sorry, there was an error uploading your file.";
         }
-    }
+   // }
   }
-  $uploaddir = "/images/gallery/".$folder+"/";
-  $uploadfile = $uploaddir . basename($_FILES['list']['name']);
-  $check_ifImageExist="select * from image where title ='". $fileName ."';";
-  $result_check= mysqli_query($con,$check_ifImageExist);
-      if (mysqli_num_rows($result_check) == 1) {
-        $error = "An image has already this title";
-       }else{
-         $insert_images="insert into image(folder,path,title,description) values('".$folder ."', 'images/gallery/". $selectedFile."','".$fileName."','".$description."');";
-          $result_insertImages= mysqli_query($con,$insert_images);
-       }
-}
+
 
 if(isset($_POST['folderNameToSave'])){
   $folderNameToSave = $_POST['folderNameToSave'];

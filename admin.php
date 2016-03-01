@@ -99,8 +99,7 @@ include 'controller.php';
 					<div class='handleFiles' id='handleFile'>
 						<div class="thumbImages" id='thumb'>
 								<div class="selectFile" id='selectFile'>
-									 <input type="file" name="fileToUpload" id="fileToUpload">
-									<div id="drop_zone">Drop files here</div>
+									 <input type="file" name="fileToUpload" id="fileToUpload" onclick="displayFileInfo()">
 									<output id="list" class='output'></output>
 									<div id="addingFileInfo" style="display:none;">
 										<label for="fileName">Title</label>
