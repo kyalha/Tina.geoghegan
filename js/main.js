@@ -1,4 +1,4 @@
-var selectedFile = '';
+var selectedFiles = '';
 		function getMenuSelected (){
 			var url = window.location.href;
 			var page= url.slice(url.lastIndexOf('/')+1, url.length-4);
@@ -27,9 +27,6 @@ var selectedFile = '';
 		document.getElementById('contentBiography').style.display = 'inline';
 	}
 
-	function displayFileInfo() {
-		document.getElementById('addingFileInfo').style.display = 'inline';
-	}
 
 	function checkAll() {
 	  var checkboxes = document.getElementsByName('checkFile');
@@ -63,6 +60,7 @@ var selectedFile = '';
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
+			 console.log("finish");
 			}
 		};
 	  xhttp.send(data);
@@ -74,6 +72,7 @@ var selectedFile = '';
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
+			 console.log("finish");
 			}
 		};
 	  xhttp.send(data);
@@ -87,6 +86,7 @@ var selectedFile = '';
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
+			 console.log("finish");
 			}
 		};
 		xhttp.send(data);
@@ -100,6 +100,7 @@ var selectedFile = '';
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
+			 console.log("finish");
 			}
 		};
 		xhttp.send(data);
@@ -123,21 +124,50 @@ var selectedFile = '';
 				}
 		}
 	}
+
+	function handleFileSelect(evt) {
+		evt.stopPropagation();
+		evt.preventDefault();
+		var files = evt.dataTransfer.files;
+		var output = [];
+		for (var i = 0, f; f = files[i]; i++) {
+			selectedFiles = escape(f.name);
+			output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+									f.size, ' bytes, last modified: ',
+									f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+									'</li>');
+		}
+		document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+		document.getElementById('addingFileInfo').style.display='inline';
+
+	}
+
+	function handleDragOver(evt) {
+		evt.stopPropagation();
+		evt.preventDefault();
+		evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+
+	}
+
+document.addEventListener('DOMContentLoaded',function(){
+	var dropZone = document.getElementById('drop_zone');
+	dropZone.addEventListener('dragover', handleDragOver, false);
+	dropZone.addEventListener('drop', handleFileSelect, false);
+
+},false);
+
 function saveFiles(){
 	var xhttp = new XMLHttpRequest();
 	var selectorDir = document.getElementById("selectDirectory");
 	var folderSelected = selectorDir.options[selectorDir.selectedIndex].value;
-	var fileName = document.getElementById("fileName").value;
-	var description = document.getElementById("fileDescription").value;
 	var id = document.getElementById("fileToUpload").value;
 	var file = document.getElementById("fileToUpload");
-	var data = "insertFiles=true&selectorDir="+folderSelected+"&fileName="+fileName+"&description="+description+"&id="+id;
-
-	xhttp.open("POST", "/Tina.geoghegan/controller.php?"+data, true);
+	var data = "insertFiles=true&selectorDir="+folderSelected+"&id="+id;
+	xhttp.open("POST", "/Tina.geoghegan/controller.php?" + data, true);
 	//xhttp.setRequestHeader("Content-type", "multipart/form-data");
 
 	var formData = new FormData();
-	formData.append(fileName, file.files[0],fileName);
+	formData.append('name', file.files[0]);
 	xhttp.send(formData);
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -148,47 +178,6 @@ function saveFiles(){
 
 }
 
-function updateExhibition(){
-	var content = CKEDITOR.instances.exhibitionID.getData();
-	var data = "exhibitionID="+content;
-	var xhttp = new XMLHttpRequest();
-	xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
-	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.onreadystatechange = function() {
-		if (xhttp.readyState == 4 && xhttp.status == 200) {
-		}
-	};
-	alert(data);
-	xhttp.send(data);
+function saveHTMLContent(){
 
 }
-function updateBiography(){
-	var content = CKEDITOR.instances.biographyID.getData();
-	var data = "biographyID="+content;
-	var xhttp = new XMLHttpRequest();
-	xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
-	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.onreadystatechange = function() {
-		if (xhttp.readyState == 4 && xhttp.status == 200) {
-		 console.log("updateBiography");
-		}
-	};
-	xhttp.send(data);
-}
-
-/*
-var i = 0;
-var path = new Array();
-// LIST OF IMAGES
-path[0] = "image_1.gif";
-path[1] = "image_2.gif";
-path[2] = "image_3.gif";
-
-function swapImage()
-{
-   document.slide.src = path[i];
-   if(i < path.length - 1) i++; else i = 0;
-   setTimeout("swapImage()",3000);
-}
-window.onload=swapImage;
-*/
