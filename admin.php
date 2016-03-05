@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html>
-<?php 
-include 'controller.php';
-?>
+<?php include 'controller.php';?>
 	<head>
 		<title>Christina Geoghegan</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="style/index.css" type="text/css">
 		<link href='https://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
 		<script type="text/javascript" src="js/main.js" language="JavaScript"></script>
-		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 	</head>
 	<body>
 	<header>
@@ -48,10 +45,10 @@ include 'controller.php';
 				<div class='contentPortfolio' id='contentPortfolio' style='display:inline'>
 					<h1>Edit Portfolio</h1>
 					<form class='editFolder' id='editFolder'>
-						<label for="selectDirectory">Folder :</label>
+						<label for="selectDirectory">Folder:</label>
 						<select class="selectDirectory" name="selectDirectory" id="selectDirectory" onchange="displayImages()">
+							<option value="Choose a folder" id="optionToRemove">Choose a folder</option>
 							<?php
-								$first_folder = "";
 								while($res_fol = $result_folders->fetch_row()){
 									echo '<option value="'.$res_fol[1] .'">'. $res_fol[1]. '</option>';
 								 } ?>
@@ -72,40 +69,36 @@ include 'controller.php';
 					</form>
 					<div class='showThumb' id='showThumb' style='display; flex; flex-wrap: nowrap;'>
 						<?php
+							$index = 0;
 							while($res_ima = $result_images->fetch_row()){
-									if($first_folder == $res_ima[1]  ){
-										echo '<div class="'. $res_ima[1] .'" id="details" style="display:none">';
+										echo '<div class="'. $res_ima[1] .'" id="details" style="display:none;width:150px;" name="contentFile">';
 										if(!empty($res_ima[2])){
-											echo '<input type="checkbox" name="checkFile" value="'.$res_ima[3].'">';
+											echo '<input src="'.$res_ima[2]. '"type="checkbox" name="checkFile" value="'.$res_ima[3].'">';
 										}
-										echo '<img src="'.$res_ima[2].'" alt="' . $res_ima[3] .'" id="' . $res_ima[3] .'" style="width:100px;height:100px;padding-right:10px;">';
+										echo '<img src="'.$res_ima[2].'" alt="' . $res_ima[3] .'" id="' . $res_ima[0] .'" style="width:100px;height:100px;padding-right:10px;">';
+										echo '<input type="text" name="fileNameInfo" id ="imageName'.$index.'" placeholder="' .$res_ima[3] .'"/>';
+										echo '<input type="text" name="fileDescriptionInfo" id="descriptionName'.$index.'" placeholder="' .$res_ima[4] .'"/>';
 										echo '</div>';
-									}else {
-										echo '<div class="'. $res_ima[1] .'" id="details" style="display:none">';
-										if(!empty($res_ima[2])){
-											echo '<input type="checkbox" name="checkFile" value="'.$res_ima[3].'">' ;
-										}
-										echo '<img src="'.$res_ima[2].'" alt="' . $res_ima[3] .'" id="' . $res_ima[3] .'" style="width:100px;height:100px;padding-right:10px;">';
-										echo '</div>';
-									}
-
+										$index++;
 							 } ?>
 					</div>
 					<form class='editFiles' id='editFiles'>
+						<p>Notice: You can edit only one file at once.</p>
 						<button type='button' onclick="checkAll()">select all</button>
-						<button type='button' onclick="uncheckAll()">Uncheck all</button>
-						<button type='button'>delete</button>
+						<button type='button' onclick="uncheckAll()">Unselect all</button>
+						<button type='button' onclick="saveInfoFile()">Save</button>
+						<button type='button' onclick="if(confirm('Are you sure you want to delete all these files?')){removeFiles()}">delete</button>
 					</form>
 					<div class='handleFiles' id='handleFile'>
 						<div class="thumbImages" id='thumb'>
 								<div class="selectFile" id='selectFile'>
-									 <input type="file" name="fileToUpload" id="fileToUpload" onclick="displayFileInfo()">
+									<input type="file" name="fileToUploadName" id="fileToUpload" onclick="displayfileInfo()">
 									<output id="list" class='output'></output>
 									<div id="addingFileInfo" style="display:none;">
-										<label for="fileName">Title</label>
-										<input type="text" id="fileName" placeholder="file name"></input>
+										<label for="title">Tile:</label>
+										<input type="text" id="title" placeholder="title"></input>
 										<label for="fileDescription">Description:</label>
-										<textarea rows="4" cols="50" id="fileDescription" placeholder="description..."></textarea>
+										<input id="fileDescription" placeholder="description..."></textarea>
 									</div>
 									<button type='button' onclick="saveFiles()">Save files</button>
 								</div>
@@ -126,8 +119,8 @@ include 'controller.php';
 			</section>
 		</div>
 		<footer>
-			 	<a href="/bio"><img src="images/fb.png" class="icon element"></a>
-				<a href="/bio"><img src="images/linkedin.png" class="icon element"></a>
+			 	<a href="/bio"><img src="images/icons/fb.png" class="icon element"></a>
+				<a href="/bio"><img src="images/icons/linkedin.png" class="icon element"></a>
 				<p>Christina Geoghegan - 2016</p>
 		</footer>
 	</body>

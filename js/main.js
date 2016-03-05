@@ -2,8 +2,10 @@ var selectedFiles = '';
 		function getMenuSelected (){
 			var url = window.location.href;
 			var page= url.slice(url.lastIndexOf('/')+1, url.length-4);
-
 		}
+		function isEmpty(str) {
+			    return (!str || 0 === str.length);
+			}
 		function selectPasswordOption(){
 			document.getElementById('contentPortfolio').style.display = 'none';
 			document.getElementById('contentExhibition').style.display = 'none';
@@ -43,15 +45,16 @@ var selectedFiles = '';
 		}
 	}
 
-	function addContentSave(){
+function addContentSave(){
 	document.getElementById('contentAddFolder').style.display = 'inline';
 	document.getElementById('contentUpdateFolder').style.display = 'none';
 }
 
-	function addContentUpdate(){
-		document.getElementById('contentUpdateFolder').style.display = 'inline';
-		document.getElementById('contentAddFolder').style.display = 'none';
-		}
+function addContentUpdate(){
+	document.getElementById('contentUpdateFolder').style.display = 'inline';
+	document.getElementById('contentAddFolder').style.display = 'none';
+}
+
 	function deleteFolder(){
 		if(document.getElementById("selectDirectory").value != "Choose a folder"){
 			var selectorDir = document.getElementById("selectDirectory");
@@ -60,28 +63,20 @@ var selectedFiles = '';
 			var data = "selectDirectory="+folderSelected+"&toDelete=true";
 			xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.onreadystatechange = function() {
-				if (xhttp.readyState == 4 && xhttp.status == 200) {
-				 console.log("finish");
-				}
-			};
 		  xhttp.send(data);
 		}
 			else {
 				alert("Choose a folder");
 			}
+			location.reload(true);
 	}
 	function saveFolder(){
 			var xhttp = new XMLHttpRequest();
 			var data = "folderNameToSave="+document.getElementById('folderNameToSave').value;
 			xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.onreadystatechange = function() {
-				if (xhttp.readyState == 4 && xhttp.status == 200) {
-				 console.log("finish");
-				}
-			};
 		  xhttp.send(data);
+			location.reload(true);
 	}
 	function updateFolder(){
 		if(document.getElementById("selectDirectory").value != "Choose a folder"){
@@ -91,15 +86,11 @@ var selectedFiles = '';
 			var data = "newFolderToUpdate="+document.getElementById('newFolderToUpdate').value+ "&selectDirectory="+folderSelected;
 			xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.onreadystatechange = function() {
-				if (xhttp.readyState == 4 && xhttp.status == 200) {
-				 console.log("finish");
-				}
-			};
 			xhttp.send(data);
 		}else {
 			alert("Choose a folder");
 		}
+		location.reload(true);
 	}
 
 	function updateExhibition(){
@@ -108,12 +99,8 @@ var selectedFiles = '';
 		var data = "exhibitionID="+newText;
 		xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xhttp.onreadystatechange = function() {
-			if (xhttp.readyState == 4 && xhttp.status == 200) {
-			 console.log("finish");
-			}
-		};
 		xhttp.send(data);
+		location.reload(true);
 	}
 
 	function displayImages() {
@@ -136,11 +123,8 @@ var selectedFiles = '';
 		     selectorDir.remove(i);
 		  	}
 		}
+}
 
-	}
-function isEmpty(str) {
-	    return (!str || 0 === str.length);
-	}
 function saveFiles(){
 	if(document.getElementById("selectDirectory").value != "Choose a folder"){
 		var xhttp = new XMLHttpRequest();
@@ -156,25 +140,22 @@ function saveFiles(){
 			var formData = new FormData();
 			formData.append('name', file.files[0]);
 			xhttp.send(formData);
-			xhttp.onreadystatechange = function() {
-				if (xhttp.readyState == 4 && xhttp.status == 200) {
-				 alert(xhttp.statusText);
-				}
-			};
+			alert("Your file has been added");
 		}else {
 			alert("Select a file and add a title!");
 		}
 	}else {
 		alert("Choose a folder");
 	}
+	location.reload(true);
 }
 
 function removeFiles(){
-
+	var selectorDir = document.getElementById("selectDirectory");
+	var folderSelected = selectorDir.options[selectorDir.selectedIndex].value;
 	var xhttp = new XMLHttpRequest();
 	var inputs = document.getElementsByTagName("input");
 	var checked = []; //will contain all checked checkboxes
-
 			for (var i = 0; i < inputs.length; i++) {
 			  if (inputs[i].type == "checkbox") {
 			    if (inputs[i].checked) {
@@ -193,20 +174,43 @@ function removeFiles(){
 				 data += "&filePath"+i+"="+filePath+"&titleImage"+i+"="+titleImage;
 			}
 				data += "&countID="+checked.length;
-				alert(data);
 				xhttp.open("POST", "/Tina.geoghegan/controller.php?" + data, true);
 				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				xhttp.onreadystatechange = function() {
-					if (xhttp.readyState == 4 && xhttp.status == 200) {
-					 console.log("finish");
-					}
-				};
 			xhttp.send(data);
 		}else {
 			alert("Choose at least one file to delete.")
 		}
-
+		location.reload(true);
 }
+function saveInfoFile(){
+	  var array_contentFile =  document.getElementsByName("contentFile");
+		var xhttp = new XMLHttpRequest();
+		var id = 0;
+		var data = "updateFileInfo=true";
+		for (var i = 0; i < array_contentFile.length; i++) {
+			var array_titles = array_contentFile[i].getElementsByTagName("input")[1];
+			var array_descriptions = array_contentFile[i].getElementsByTagName("input")[2];
+		 	id = array_contentFile[i].getElementsByTagName('img')[0].id;
+				var newName = array_titles.value;
+				var oldName = array_titles.placeholder;
+				if(!isEmpty(newName)){
+				  data += "&updateName=true&newName="+newName+"&oldName="+oldName+"&id="+id;
+				}
+				var newDescription = array_descriptions.value;
+				var oldDescription = array_descriptions.placeholder;
+				if(!isEmpty(newDescription)){
+					data += "&updateDescription=true&newDescription="+newDescription+"&oldDescription="+oldDescription+"&id="+id;;
+				}
+
+		}
+		alert("Informations of the file has been changed.")
+		xhttp.open("POST", "/Tina.geoghegan/controller.php?" + data, true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send(data);
+		location.reload(true);
+}
+
+
 
 function saveHTMLContent(){
 

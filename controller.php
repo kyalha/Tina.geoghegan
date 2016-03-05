@@ -32,11 +32,10 @@ if(isset($_GET['insertFiles']) && isset($_GET['title'])){
   $title = $_GET['title'];
   $description = $_GET['fileDescription'];
   $target_dir = "images/gallery/";
+  error_log(print_r(basename( $_FILES["name"]["name"]. " has been uploaded."),true));
   $target_file = $target_dir . basename($_FILES['name']['name']);
   $uploadOk = 1;
   $imageFileType = basename($_FILES['name']['type']);
-  $insert_images="insert into image(folder,path,name,description) values('".$folder ."', '". $target_file."','".$title."','".$description."');";
-  $result_insertImages= mysqli_query($con,$insert_images);
     if (file_exists($target_file)) {
          error_log(print_r(basename("Sorry, file already exists."),true));
         $uploadOk = 0;
@@ -50,8 +49,11 @@ if(isset($_GET['insertFiles']) && isset($_GET['title'])){
           error_log(print_r(basename("Sorry, your file was not uploaded."),true));
     } else if($uploadOk != 0){
         if (move_uploaded_file($_FILES["name"]["tmp_name"], $target_file)) {
-          error_log(print_r(basename( $_FILES["fileToUpload"]["name"]. " has been uploaded."),true));
+          error_log(print_r(basename( $_FILES["name"]["name"]. " has been uploaded."),true));
+          $insert_images="insert into image(folder,path,name,description) values('".$folder ."', '". $target_file."','".$title."','".$description."');";
+          $result_insertImages= mysqli_query($con,$insert_images);
           chmod($target_file, 0755);
+          $error = "Your file has been added";
         } else {
           error_log(print_r(basename("Sorry, there was an error uploading your file."),true));
         }
@@ -117,23 +119,42 @@ if(isset($_POST['selectDirectory']) && isset($_POST['toDelete'])){
   }
 }
 
-if(isset($_POST['exhibitionID']))
+if(isset($_POST['exhibitionID'])){
   $exhibitionToUpdate = $_POST['exhibitionID'];
   if(!empty($exhibitionToUpdate) && $exhibitionToUpdate != ''){
         $update_exhib="update multimedia set content = '" . $exhibitionToUpdate ."' where id=exhibition;";
         $result_exhib= mysqli_query($con,$update_exhib);
   }
+}
 
 if(isset($_POST['selectDirectory']) && isset($_POST['newFolderToUpdate'])){
   $folderNameToUpdate = $_POST['selectDirectory'];
   $newFolder = $_POST['newFolderToUpdate'];
   if(!empty($newFolder) && $newFolder != ''){
-      $check_nameFolder="select * from folder where name = '".  $folderNameToUpdate ."');";
+      $check_nameFolder="select * from folder where name = '".  $folderNameToUpdate ."';";
       $result_check= mysqli_query($con,$check_nameFolder);
       if (mysqli_num_rows($result_check) == 0) {
         $update_folder="update folder set name = '" . $newFolder ."' where name ='".$folderNameToUpdate. "';";
         $result_deleteFolder= mysqli_query($con,$update_folder);
        }
+  }
+}
+if(isset($_POST['updateName'])){
+  $newName= $_POST['newName'];
+  $oldName= $_POST['oldName'];
+  $id= $_POST['id'];
+  if(!empty($newName) && $newName != ''){
+    $updateNameFile="update image set name = '". $newName . "' where id = ".$id.";";
+    error_log(print_r(basename($updateNameFile),true));
+    $result_updateName= mysqli_query($con,$updateNameFile);
+  }
+}
+ if(isset($_POST['updateDescription'])){
+  $newDescription = $_POST['newDescription'];
+  $oldescription = $_POST['oldDescription'];
+ if(!empty($newDescription) && $newDescription != ''){
+    $updateDescriptionFile="update image set description = '". $newDescription . "' where id = ".  $id .";";
+    $result_updateDescription= mysqli_query($con,$updateDescriptionFile);
   }
 }
 
