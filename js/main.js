@@ -95,11 +95,24 @@ function addContentUpdate(){
 
 	function updateExhibition(){
 		var xhttp = new XMLHttpRequest();
-		var newText = document.getElementById("exhibitionID");
-		var data = "exhibitionID="+newText;
+		var newText = CKEDITOR.instances.exhibitionID.getData();
+		var data = "exhibitionID="+encodeURIComponent(newText);
 		xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.send(data);
+		alert("Content of exhibition has been updated.");
+		location.reload(true);
+	}
+
+	function updateBiography(){
+		var xhttp = new XMLHttpRequest();
+		var newText = CKEDITOR.instances.biographyID.getData();
+		var data = "biographyID="+encodeURIComponent(newText);
+		xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		alert(data);
+		xhttp.send(data);
+		alert("Content of biography has been updated.");
 		location.reload(true);
 	}
 
@@ -157,7 +170,7 @@ function removeFiles(){
 	var inputs = document.getElementsByTagName("input");
 	var checked = []; //will contain all checked checkboxes
 			for (var i = 0; i < inputs.length; i++) {
-			  if (inputs[i].type == "checkbox") {
+			  if (inputs[i].type == "checkbox" && inputs[i].id == folderSelected) {
 			    if (inputs[i].checked) {
 			      checked.push(inputs[i]);
 			    }
@@ -208,10 +221,4 @@ function saveInfoFile(){
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.send(data);
 		location.reload(true);
-}
-
-
-
-function saveHTMLContent(){
-
 }

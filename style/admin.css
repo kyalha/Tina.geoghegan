@@ -1,0 +1,35 @@
+
+/* ====================== Main content ================= */
+.main {
+  padding: 10px;
+}
+.thumb {
+  height: 75px;
+  border: 1px solid #000;
+  margin: 10px 5px 0 0;
+}
+aside .option {
+  width: 100%;
+  height: 30px;
+  border:  1px solid white;
+  margin-top: 10px;
+}
+.selectFile{
+  height: 20px;
+  margin: 10px;
+}
+  .thumb {
+    height: 75px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+  .showThumb {
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .editFolder {
+    padding-bottom: 10px;
+    border-bottom: 1px solid white;
+  }

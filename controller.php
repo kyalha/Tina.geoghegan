@@ -12,6 +12,10 @@ $select_folders = "select * from folder;";
 $result_folders = mysqli_query($con,$select_folders);
 $select_images = "select * from image;";
 $result_images = mysqli_query($con,$select_images);
+$select_exhib = "select * from multimedia where id='exhibition';";
+$result_exhib = mysqli_query($con,$select_exhib);
+$select_bio = "select * from multimedia where id='biography';";
+$result_bio = mysqli_query($con,$select_bio);
 $select_firstFolder= "select name from folder order by name ASC;";
 $result_firstFolder= mysqli_query($con,$select_firstFolder);
 $first_folder="";
@@ -36,11 +40,11 @@ if(isset($_GET['insertFiles']) && isset($_GET['title'])){
   $target_file = $target_dir . basename($_FILES['name']['name']);
   $uploadOk = 1;
   $imageFileType = basename($_FILES['name']['type']);
-    if (file_exists($target_file)) {
+    /*if (file_exists($target_file)) {
          error_log(print_r(basename("Sorry, file already exists."),true));
         $uploadOk = 0;
-    }
-    else if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+    }*/
+   if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
     && $imageFileType != "gif" ) {
         error_log(print_r(basename( "Sorry, only JPG, JPEG, PNG & GIF files are allowed."),true));
         $uploadOk = 0;
@@ -102,29 +106,40 @@ if(isset($_POST['selectDirectory']) && isset($_POST['toDelete'])){
   $folderNameToDelete = $_POST['selectDirectory'];
   $toDelete = $_POST['toDelete'];
   if(!empty($folderNameToDelete) && $folderNameToDelete != '' && !empty($toDelete)){
-      $selectImagesFromFolder = "select * from image where folder = '" . $folderNameToDelete."';" ;
-      $result_images= mysqli_query($con,$selectImagesFromFolder);
-      if($result_images->num_rows > 0) {
-          while($row = $result_images->fetch_assoc()) {
-            $deleteImage= "delete from image where id = '" . $row[0]."';" ;
-            $result_deleteImage= mysqli_query($con,$deleteImage);
-          }
-        }
-      $check_nameFolder="select * from folder where name = '".  $folderNameToDelete ."';";
-      $result_check= mysqli_query($con,$check_nameFolder);
-      if (mysqli_num_rows($result_check) == 0) {
-        $delete_folder="delete from folder where name = '" . $folderNameToDelete ."';";
-        $result_deleteFolder= mysqli_query($con,$delete_folder);
-       }
+      $deleteImage= "delete from image where folder = '" . $folderNameToDelete."';" ;
+      $result_deleteImage= mysqli_query($con,$deleteImage);
+      $cdelete_nameFolder="delete from folder where name = '".  $folderNameToDelete ."';";
+      $result_delete= mysqli_query($con,$cdelete_nameFolder);
+      error_log(print_r(basename("Folder has been deleted."),true));
   }
 }
 
 if(isset($_POST['exhibitionID'])){
   $exhibitionToUpdate = $_POST['exhibitionID'];
-  if(!empty($exhibitionToUpdate) && $exhibitionToUpdate != ''){
-        $update_exhib="update multimedia set content = '" . $exhibitionToUpdate ."' where id=exhibition;";
+  $getExhibContent= "select * from multimedia where id = 'exhibition';" ;
+  $result_exhibContent= mysqli_query($con,$getExhibContent);
+  $num_rows = $result_exhibContent->num_rows;
+      if ($num_rows > 0) {
+        $update_exhib="update multimedia set content = '" . $exhibitionToUpdate ."' where id= 'exhibition';";
         $result_exhib= mysqli_query($con,$update_exhib);
-  }
+      }else {
+        $insert_exhib="insert into multimedia(id,content) values('exhibition','" . $exhibitionToUpdate ."');";
+        $result_insertExhib= mysqli_query($con,$insert_exhib);
+      }
+}
+if(isset($_POST['biographyID'])){
+  $biographyToUpdate = $_POST['biographyID'];
+  $getBioContent= "select * from multimedia where id = 'biography';" ;
+  $result_bioContent= mysqli_query($con,$getBioContent);
+  $num_rows = $result_bioContent->num_rows;
+      if ($num_rows > 0) {
+        $update_bio="update multimedia set content = '" . $biographyToUpdate ."' where id=biography;";
+        $result_bio= mysqli_query($con,$update_bio);
+        }else {
+        error_log(print_r(basename($result_bio),true));
+        $insert_bio="insert into multimedia(id,content) values('biography','" . $biographyToUpdate ."');";
+        $result_insertBio= mysqli_query($con,$insert_bio);
+        }
 }
 
 if(isset($_POST['selectDirectory']) && isset($_POST['newFolderToUpdate'])){
@@ -133,7 +148,9 @@ if(isset($_POST['selectDirectory']) && isset($_POST['newFolderToUpdate'])){
   if(!empty($newFolder) && $newFolder != ''){
       $check_nameFolder="select * from folder where name = '".  $folderNameToUpdate ."';";
       $result_check= mysqli_query($con,$check_nameFolder);
-      if (mysqli_num_rows($result_check) == 0) {
+      $update_images="update image set folder = '". $newFolder. "' where folder = '".  $folderNameToUpdate ."';";
+      $result_updateImages= mysqli_query($con,$update_images);
+      if (mysqli_num_rows($result_check) > 0) {
         $update_folder="update folder set name = '" . $newFolder ."' where name ='".$folderNameToUpdate. "';";
         $result_deleteFolder= mysqli_query($con,$update_folder);
        }

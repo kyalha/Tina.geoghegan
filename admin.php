@@ -5,8 +5,10 @@
 		<title>Christina Geoghegan</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="style/index.css" type="text/css">
+		<link rel="stylesheet" href="style/admin.css" type="text/css">
 		<link href='https://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
 		<script type="text/javascript" src="js/main.js" language="JavaScript"></script>
+		 <script src="ckeditor/ckeditor.js"></script>
 	</head>
 	<body>
 	<header>
@@ -67,13 +69,13 @@
 							<button type="button" id="updateFolderID" onclick="updateFolder()">Update folder</button>
 						</div>
 					</form>
-					<div class='showThumb' id='showThumb' style='display; flex; flex-wrap: nowrap;'>
+					<div class='showThumb' id='showThumb'>
 						<?php
 							$index = 0;
 							while($res_ima = $result_images->fetch_row()){
 										echo '<div class="'. $res_ima[1] .'" id="details" style="display:none;width:150px;" name="contentFile">';
 										if(!empty($res_ima[2])){
-											echo '<input src="'.$res_ima[2]. '"type="checkbox" name="checkFile" value="'.$res_ima[3].'">';
+											echo '<input src="'.$res_ima[2]. '"type="checkbox" name="checkFile" value="'.$res_ima[3].'" id="'.$res_ima[1] .'">';
 										}
 										echo '<img src="'.$res_ima[2].'" alt="' . $res_ima[3] .'" id="' . $res_ima[0] .'" style="width:100px;height:100px;padding-right:10px;">';
 										echo '<input type="text" name="fileNameInfo" id ="imageName'.$index.'" placeholder="' .$res_ima[3] .'"/>';
@@ -105,14 +107,24 @@
 						</div>
 					</div>
 				</div>
-				<form class='contentExhibition' id='contentExhibition' style='display:none'>
+				<form class='contentExhibition' id='contentExhibition' style='display:none;'>
 					<h1>Edit Exhibition</h1>
-					 <textarea class="ckeditor" id="exhibitionID" rows="5" cols="15"></textarea>
+					 <textarea class="ckeditor" id="exhibitionID" rows="5" cols="15">
+						 <?php
+					 		while($res_exhib= $result_exhib->fetch_row()){
+					 			echo $res_exhib[1];
+					 		 } ?>
+					 </textarea>
 					 <button type="button" id="updateExhibitionID" onclick="updateExhibition()">Update Exhibition</button>
 				</form>
-				<form class='contentBiography' id='contentBiography' style='display:none'>
+				<form class='contentBiography' id='contentBiography' style='display:none;'>
 					<h1>Edit Biography</h1>
-					 <textarea class="ckeditor" id="biographyID" rows="5" cols="15"></textarea>
+					 <textarea class="ckeditor" id="biographyID" rows="5" cols="15">
+						 <?php
+							while($res_bio= $result_bio->fetch_row()){
+								echo $res_bio[1];
+							 } ?>
+					 </textarea>
 					 <button type="button" id="updateBiographyID" onclick="updateBiography()">Update Biography</button>
 				</form>
 				<span><?php echo $error; ?></span>
