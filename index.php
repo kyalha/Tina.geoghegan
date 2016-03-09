@@ -50,7 +50,7 @@ $result_images = mysqli_query($con,$select_images);
 			<aside style="display:none;">
 			</aside>
 
-			<section class="main">
+			<section class="main index">
 				<?php
 				echo '<div class="rslides">';
 				while($row = $result_images->fetch_assoc()) {

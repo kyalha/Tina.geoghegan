@@ -27,16 +27,56 @@ $result_folders = mysqli_query($con,$select_folders);
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script src="responsiveslides.min.js"></script>
   <script>
-    // You can also use "$(window).load(function() {"
     $(function () {
-      // Slideshow 3
       $("#slider3").responsiveSlides({
         manualControls: '#slider3-pager',
         maxwidth: 1000
       });
-
     });
+
+
+    function displayImages(classname) {
+       var rslides = document.getElementsByClassName('rslides');
+        var allDivs= document.getElementsByName("contentFile");
+        for (var j = 0; j < allDivs.length; j++) {
+                if(allDivs[j].className == classname){
+                    allDivs[j].style.display = 'inline';
+                    document.getElementById('slider3').style.display = 'flex';
+                    document.getElementById('slider3-pager').style.display = 'flex';
+                    document.getElementById('noImages').style.display = 'none';
+                  }else {
+                    allDivs[j].style.display = 'none';
+                    document.getElementById('slider3').style.display = 'none';
+                    document.getElementById('slider3-pager').style.display = 'none';
+                      document.getElementById('noImages').innerHTML= '<p style="padding: 10px;"> No images to display </p>';
+                  }
+              }
+      }
+
   </script>
+  <style>
+  .main {
+      order: 2;
+    display: flex;
+    flex-grow: 3;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    }
+
+    .rslides_tabs {
+      display: flex;
+      padding: 10px;
+    }
+
+    .container{
+      -webkit-column-count: 2;
+      -moz-column-count: 2;
+      column-count: 2;
+    }
+  </style>
 </head>
 <body>
 
@@ -71,7 +111,7 @@ $result_folders = mysqli_query($con,$select_folders);
         <?php
         echo '<p>Select album: </p>';
         while($res_fol = $result_folders->fetch_row()){
-          echo '<button class="option" value="'.$res_fol[1] .'">'. $res_fol[1]. '</button>';
+          echo '<button class="'. $res_fol[1] .' option" value="'.$res_fol[1] .'" onclick="displayImages(this.value)"> '.$res_fol[1] .'</button>';
          }
          ?>
       </aside>
@@ -81,22 +121,27 @@ $result_folders = mysqli_query($con,$select_folders);
           <?php
 					echo '<div class="rslides" id="slider3">';
 					while($row = $result_images->fetch_assoc()) {
+            echo '<div class="'. $row["folder"] .'" id="details" style="" name="contentFile">';
 						echo ' <li><img src="../'.$row["path"].'" alt="' . $row["name"] .'" id="' . $row["name"] .'" class="slide"> </li>';
-					}
+	          echo '</div>';
+          }
 					echo '</div>';
 
           echo '<ul id="slider3-pager">';
           while($row = $result_thumb->fetch_assoc()) {
+            echo '<div class="'. $row["folder"] .'" id="detailsThumb" style="" name="contentFile">';
             echo ' <li><a href="#"><img src="../'.$row["path"].'" alt="' . $row["name"] .'" id="' . $row["name"] .'" class="slide" width="100px" height="100px" style="padding:10px;"></a></li>';
+            echo '</div>';
           }
           echo '</ul>';
           ?>
+          <div id="noImages"></div>
         </div>
       </section>
   </div>
 <footer>
-  <a href="/bio"><img src="images/icons/fb.png" class="icon element"></a>
-  <a href="/bio"><img src="images/icons/linkedin.png" class="icon element"></a>
+  <a href="/bio"><img src="../images/icons/fb.png" class="icon element"></a>
+  <a href="/bio"><img src="../images/icons/linkedin.png" class="icon element"></a>
   <p>Christina Geoghegan - 2016</p>
 </footer>
 </body>

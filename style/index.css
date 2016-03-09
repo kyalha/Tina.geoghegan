@@ -99,9 +99,9 @@ li a {
 .container {
 	order: 2;
 	display: flex;
-	flex-grow:3;
-  -webkit-flex-flow: row wrap;
-  flex-flow: row wrap;
+  -webkit-column-count: 2;
+-moz-column-count: 2;
+column-count: 2;
 }
 aside {
   border: 1px solid white;
@@ -112,10 +112,12 @@ aside {
 	-webkit-box-shadow: inset 0 0 25px #4E4E4E;
 	box-shadow: inset 0 0 25px #4E4E4E;
 }
+.index{
+    width: 100%;
+}
 .main {
 	order:2;
   flex-grow: 1;
-  width: 100%;
   height: 100%;
 }
 .portfolio{
