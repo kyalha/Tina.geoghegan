@@ -1,64 +1,48 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "root";
+$dbname = "tinageo";
+$_SESSION["login"] = "";
+$con=mysqli_connect($servername,$username,$password,$dbname);
+if (mysqli_connect_errno($con))
+{
+  return false;
+}
+ if(isset($_POST['loginName']) && isset($_POST['loginPwd'])){
+     if(!empty($_POST['loginName']) && $_POST['loginName'] != '' && !empty($_POST['loginPwd']) && $_POST['loginPwd'] != ''){
+       $check_admin="select * from admin where admin_id = '".  $_POST['loginName'] ."' && password = '" . $_POST['loginPwd']. "';";
+       $result_checkAdmin= mysqli_query($con,$check_admin);
+       if($result_checkAdmin)
+          {
+            $_SESSION["login"] = $_POST['loginName'];
+            header("Location: admin.php");
+						die();
+          }
+          else {
+            $error = "Invalid login or password.";
+          }
+     }
+ }
+ ?>
 <!DOCTYPE html>
 <html>
-<?php include 'controller.php';?>
 	<head>
 		<title>Christina Geoghegan</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<link href='https://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>
 		<script type="text/javascript" src="js/main.js" language="JavaScript"></script>
-		 <script src="ckeditor/ckeditor.js"></script>
-		 <style>
-		 body, html {
-		  height: 100%;
-			width:100%;
-		  overflow:hidden;
-			padding: 0;
-			margin: 0;
-		}
-		.container {
-			width: 100%;
-			height: 100%;
-			background-color: #3399ff;
-		}
-		form{
-			width: 500px;
-			height: 300px;
-			background-color: white;
-			position: fixed; /* or absolute */
-		  top: 50%;
-		  left: 50%;
-			margin-top: -150px;
-			margin-left: -250px;
-			border-radius: 10px;
-			font-size: : 24px;
-		}
-		input{
-			width:200px;
-			height: 50px;
-			margin-left: -100px;
-			margin-top:-25px;
-			position: fixed;
-			border-radius: 10px;
-		}
- .login {
-			left:50%;
-			top:40%;
-		}
-		.password {
-			left:50%;
-			top:60%;
-		}
-		 </style>
+		<link rel="stylesheet" href="style/login.css" type="text/css">
 	</head>
 	<body>
 		<header></header>
 			<div class="container">
-				<form action="" method="post">
-					<label for="loginName" style="display:none;">Folder name:</label>
-					<input type="text" id="loginName" placeholder="admin" class="login"></input>
+				<div class="form">
+					<label for="loginName" style="display:none;">Admin</label>
+					<input type="text" name="loginAdmin" id="loginName" placeholder="admin" class="login"></input>
 					<label for="loginPwd" style="display:none;">Password</label>
-					<input type="password" id="loginPwd" placeholder="********" class="password"></input>
-				</form>
+					<input type="password" name="loginPassword" id="loginPwd" placeholder="********" class="password"></input>
+					<button class="submit" onclick="connectAdmin()"> Login </button>
+				</div>
 			</div>
 			<footer>
 			</footer>

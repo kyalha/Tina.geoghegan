@@ -3,6 +3,7 @@ $servername = "localhost";
 $username = "root";
 $password = "root";
 $dbname = "tinageo";
+$_SESSION["login"] = "";
 $con=mysqli_connect($servername,$username,$password,$dbname);
 if (mysqli_connect_errno($con))
 {
@@ -26,10 +27,6 @@ if ($result_firstFolder->num_rows > 0) {
     }
   }
 $error='';
-if (mysqli_connect_errno($con))
-{
-  return false;
-}
 
 if(isset($_GET['insertFiles']) && isset($_GET['title'])){
   $folder = $_GET['selectorDir'];
@@ -174,5 +171,4 @@ if(isset($_POST['updateName'])){
     $result_updateDescription= mysqli_query($con,$updateDescriptionFile);
   }
 }
-
 ?>

@@ -1,6 +1,14 @@
+<?php
+/*
+session_start();
+if (!isset($_SESSION["login"]) || empty($_SESSION["login"])){
+	header("Location: login.php");
+}
+*/
+include 'controller.php';
+?>
 <!DOCTYPE html>
 <html>
-<?php include 'controller.php';?>
 	<head>
 		<title>Christina Geoghegan</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">

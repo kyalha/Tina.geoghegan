@@ -222,3 +222,17 @@ function saveInfoFile(){
 		xhttp.send(data);
 		location.reload(true);
 }
+
+function connectAdmin() {
+	if(document.getElementById("loginName").value != "" && document.getElementById("loginPwd").value != ""){
+		var loginName = document.getElementById("loginName").value;
+		var loginPwd = document.getElementById("loginPwd").value;
+		var xhttp = new XMLHttpRequest();
+		var data = "loginName="+loginName+"&loginPwd="+loginPwd;
+
+		xhttp.open("POST", "/Tina.geoghegan/login.php", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send(data);
+			alert(data);
+	}
+}
