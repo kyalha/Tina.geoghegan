@@ -47,3 +47,8 @@ input, .submit{
  color: white;
   border-radius: 10px;
 }
+
+#error {
+  color:red;
+  margin-left: 32%;
+}

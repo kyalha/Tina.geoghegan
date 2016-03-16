@@ -1,9 +1,9 @@
 <?php
+require_once 'session.php';
 $servername = "localhost";
 $username = "root";
 $password = "root";
 $dbname = "tinageo";
-$_SESSION["login"] = "";
 $con=mysqli_connect($servername,$username,$password,$dbname);
 if (mysqli_connect_errno($con))
 {
@@ -28,19 +28,20 @@ if ($result_firstFolder->num_rows > 0) {
   }
 $error='';
 
+function make_safe($con,$variable) {
+    $variable = mysqli_real_escape_string($con,trim($variable));
+    return $variable;
+}
+
 if(isset($_GET['insertFiles']) && isset($_GET['title'])){
-  $folder = $_GET['selectorDir'];
-  $title = $_GET['title'];
-  $description = $_GET['fileDescription'];
+  $folder = make_safe($con,$_GET['selectorDir']);
+  $title = make_safe($con,$_GET['title']);
+  $description = make_safe($con,$_GET['fileDescription']);
   $target_dir = "images/gallery/";
   error_log(print_r(basename( $_FILES["name"]["name"]. " has been uploaded."),true));
   $target_file = $target_dir . basename($_FILES['name']['name']);
   $uploadOk = 1;
   $imageFileType = basename($_FILES['name']['type']);
-    /*if (file_exists($target_file)) {
-         error_log(print_r(basename("Sorry, file already exists."),true));
-        $uploadOk = 0;
-    }*/
    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
     && $imageFileType != "gif" ) {
         error_log(print_r(basename( "Sorry, only JPG, JPEG, PNG & GIF files are allowed."),true));
@@ -63,7 +64,7 @@ if(isset($_GET['insertFiles']) && isset($_GET['title'])){
 
 if(isset($_POST['removeFiles'])){
     $target_dir = "images/gallery/";
-    $countID= $_POST['countID'];
+    $countID= make_safe($con,$_POST['countID']);
     $uploadOk = 1;
     for ($i=0; $i < $countID; $i++) {
       $target_file = $_POST['filePath'.$i];
@@ -85,7 +86,7 @@ if(isset($_POST['removeFiles'])){
 }
 
 if(isset($_POST['folderNameToSave'])){
-  $folderNameToSave = $_POST['folderNameToSave'];
+  $folderNameToSave = make_safe($con,$_POST['folderNameToSave']);
   if(!empty($folderNameToSave) && $folderNameToSave != ''){
       $check_nameFolder="select * from folder where name = '".  $folderNameToSave ."');";
       $result_check= mysqli_query($con,$check_nameFolder);
@@ -100,8 +101,8 @@ if(isset($_POST['folderNameToSave'])){
 }
 
 if(isset($_POST['selectDirectory']) && isset($_POST['toDelete'])){
-  $folderNameToDelete = $_POST['selectDirectory'];
-  $toDelete = $_POST['toDelete'];
+  $folderNameToDelete = make_safe($con,$_POST['selectDirectory']);
+  $toDelete = make_safe($con,$_POST['toDelete']);
   if(!empty($folderNameToDelete) && $folderNameToDelete != '' && !empty($toDelete)){
       $deleteImage= "delete from image where folder = '" . $folderNameToDelete."';" ;
       $result_deleteImage= mysqli_query($con,$deleteImage);
@@ -112,7 +113,7 @@ if(isset($_POST['selectDirectory']) && isset($_POST['toDelete'])){
 }
 
 if(isset($_POST['exhibitionID'])){
-  $exhibitionToUpdate = $_POST['exhibitionID'];
+  $exhibitionToUpdate = make_safe($con,$_POST['exhibitionID']);
   $getExhibContent= "select * from multimedia where id = 'exhibition';" ;
   $result_exhibContent= mysqli_query($con,$getExhibContent);
   $num_rows = $result_exhibContent->num_rows;
@@ -125,23 +126,22 @@ if(isset($_POST['exhibitionID'])){
       }
 }
 if(isset($_POST['biographyID'])){
-  $biographyToUpdate = $_POST['biographyID'];
+  $biographyToUpdate = make_safe($con,$_POST['biographyID']);
   $getBioContent= "select * from multimedia where id = 'biography';" ;
   $result_bioContent= mysqli_query($con,$getBioContent);
   $num_rows = $result_bioContent->num_rows;
       if ($num_rows > 0) {
-        $update_bio="update multimedia set content = '" . $biographyToUpdate ."' where id=biography;";
+        $update_bio="update multimedia set content = '" . $biographyToUpdate ."' where id= 'biography';";
         $result_bio= mysqli_query($con,$update_bio);
         }else {
-        error_log(print_r(basename($result_bio),true));
         $insert_bio="insert into multimedia(id,content) values('biography','" . $biographyToUpdate ."');";
         $result_insertBio= mysqli_query($con,$insert_bio);
         }
 }
 
 if(isset($_POST['selectDirectory']) && isset($_POST['newFolderToUpdate'])){
-  $folderNameToUpdate = $_POST['selectDirectory'];
-  $newFolder = $_POST['newFolderToUpdate'];
+  $folderNameToUpdate = make_safe($con,$_POST['selectDirectory']);
+  $newFolder = make_safe($con,$_POST['newFolderToUpdate']);
   if(!empty($newFolder) && $newFolder != ''){
       $check_nameFolder="select * from folder where name = '".  $folderNameToUpdate ."';";
       $result_check= mysqli_query($con,$check_nameFolder);
@@ -154,8 +154,8 @@ if(isset($_POST['selectDirectory']) && isset($_POST['newFolderToUpdate'])){
   }
 }
 if(isset($_POST['updateName'])){
-  $newName= $_POST['newName'];
-  $oldName= $_POST['oldName'];
+  $newName= make_safe($con,$_POST['newName']);
+  $oldName= make_safe($con,$_POST['oldName']);
   $id= $_POST['id'];
   if(!empty($newName) && $newName != ''){
     $updateNameFile="update image set name = '". $newName . "' where id = ".$id.";";
@@ -164,11 +164,46 @@ if(isset($_POST['updateName'])){
   }
 }
  if(isset($_POST['updateDescription'])){
-  $newDescription = $_POST['newDescription'];
-  $oldescription = $_POST['oldDescription'];
+  $newDescription = make_safe($con,$_POST['newDescription']);
+  $oldescription = make_safe($con,$_POST['oldDescription']);
  if(!empty($newDescription) && $newDescription != ''){
     $updateDescriptionFile="update image set description = '". $newDescription . "' where id = ".  $id .";";
     $result_updateDescription= mysqli_query($con,$updateDescriptionFile);
   }
+}
+if(isset($_POST['loginName']) && isset($_POST['loginPwd'])){
+    if(!empty($_POST['loginName']) && $_POST['loginName'] != '' && !empty($_POST['loginPwd']) && $_POST['loginPwd'] != ''){
+      $check_admin="select * from admin where admin_id = '".  make_safe($con,$_POST['loginName']) ."' AND password = '" . make_safe($con,$_POST['loginPwd']). "';";
+      $result_checkAdmin= mysqli_query($con,$check_admin);
+      $response = array();
+      if(mysqli_num_rows($result_checkAdmin) > 0)
+      {
+          header('Content-type: json/application');
+          $_SESSION["login"] = make_safe($con,$_POST['loginName']);
+          $response['url']    = './admin.php';
+          $response['status'] = 0;
+          echo json_encode($response);
+          exit;
+      }
+      else
+      {
+          header('Content-type: json/application');
+          $response['url']    = './login.php';
+          $response['status'] = 1;
+          $response['message'] = 'Invalid login or password.';
+          echo json_encode($response);
+          exit;
+      }
+    }
+}
+
+if(isset($_POST['disconnect']))
+{
+  header('Content-type: json/application');
+  session_destroy();
+  $response['url']    = './login.php';
+  $response['status'] = 0;
+  echo json_encode($response);
+  exit;
 }
 ?>

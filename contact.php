@@ -29,14 +29,15 @@ $result_bio = mysqli_query($con,$select_bio);
 			</aside>
 
 			<section class="main index">
-				<?php
-        $array= "";
-        while ($row = mysqli_fetch_array($result_bio, MYSQL_NUM)) {
-          if($row[0] == "biography"){
-            printf($row[1]);
-          }
-      }
-				 ?>
+        <form action="" method="post">
+          <label for="name" style="display:none;">name</label>
+          <input type="text" id="name" placeholder="your name"></input>
+          <label for="email" style="display:none;">email</label>
+          <input type="text" id="email" placeholder="your email"></input>
+          <label for="description" style="display:none;">description</label>
+          <input type="text" id="description" placeholder="your description"></input>
+          <input type="submit" class="submit" value="Send">
+        </form>
 			</section>
 
 		</div>

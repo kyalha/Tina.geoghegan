@@ -223,16 +223,52 @@ function saveInfoFile(){
 		location.reload(true);
 }
 
-function connectAdmin() {
-	if(document.getElementById("loginName").value != "" && document.getElementById("loginPwd").value != ""){
-		var loginName = document.getElementById("loginName").value;
-		var loginPwd = document.getElementById("loginPwd").value;
-		var xhttp = new XMLHttpRequest();
-		var data = "loginName="+loginName+"&loginPwd="+loginPwd;
+ document.addEventListener("DOMContentLoaded", function(event) {
+	 if(document.getElementById('loginName') !=null){
+		 document.getElementById("loginButton").addEventListener("click", function(){
+	 		if(document.getElementById("loginName").value != "" && document.getElementById("loginPwd").value != ""){
+	 			var loginName = document.getElementById("loginName").value;
+	 			var loginPwd = document.getElementById("loginPwd").value;
+	 			var xhttp = new XMLHttpRequest();
+	 			var data = "loginName="+loginName+"&loginPwd="+loginPwd;
+	 			xhttp.onreadystatechange = function() {
+	 				if (xhttp.readyState == 4 && xhttp.status == 200) {
+	 					var response = xhttp.responseText;
+	 					response = JSON.parse(response);
+	 					if(response.status == 0)
+	 					{
+	 						window.location.href = response.url;
+	 					}
+	 					else
+	 					{
+	 						 document.getElementById('error').innerHTML = response.message;
+	 					}
+	 				}
+	 			};
+	 			xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
+	 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	 			xhttp.send(data);
+	 		}
+	 	});
+	 }
+if(document.getElementById('disconnectButton') !=null){
+	document.getElementById("disconnectButton").addEventListener("click", function(){
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (xhttp.readyState == 4 && xhttp.status == 200) {
+					var response = xhttp.responseText;
+					response = JSON.parse(response);
+					if(response.status == 0)
+					{
+						window.location.href = response.url;
+					}
+				}
+			};
+			var data = "disconnect=true";
+			xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send(data);
 
-		xhttp.open("POST", "/Tina.geoghegan/login.php", true);
-		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xhttp.send(data);
-			alert(data);
+		});
 	}
-}
+	});

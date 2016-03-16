@@ -1,11 +1,12 @@
 <?php
-/*
-session_start();
-if (!isset($_SESSION["login"]) || empty($_SESSION["login"])){
+require_once 'session.php';
+
+if (!isset($_SESSION["login"])){
 	header("Location: login.php");
+	exit;
+}else {
+	include 'controller.php';
 }
-*/
-include 'controller.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,35 +22,32 @@ include 'controller.php';
 	<body>
 	<header>
 		<nav class="navbar shadow">
-				  <p class="title"> Christina Geoghegan </p>
-				  <ul class= "menu">
-				    <li>
-				    	<a href="/" class="underline" id="home">Home</a>
-				    </li>
-				    <li>
-				        <a href="/print" class="underline" id="work">Work</a>
-				    </li>
-				    <li>
-				        <a href="/web" class="underline" id="cv">C.V</a>
-				    </li>
-				    <li>
-				        <a href="/bio" class="underline" id="biography">Biography</a>
-				    </li>
-				    <li>
-				        <a href="/contact" class="underline" id="contact">Contact</a>
-				    </li>
-				    <li>
-				        <a href="/admin" class="underline" id="admin">Admin</a>
-				    </li>
-				  </ul>
-
-		</nav>
+	        <p class="title"> Christina Geoghegan </p>
+	        <ul class= "menu">
+	          <li>
+	            <a href="index.php" class="underline" id="home">Home</a>
+	          </li>
+	          <li>
+	              <a href="biography.php" class="underline" id="biography">Biography</a>
+	          </li>
+	          <li>
+	              <a href="exhibition.php" class="underline" id="exhibition">Exhibition</a>
+	          </li>
+	          <li>
+	              <a href="contact.php" class="underline" id="contact">Contact</a>
+	          </li>
+						<li>
+								<a href="admin.php" class="underline" id="admin">Admin</a>
+						</li>
+	        </ul>
+	  </nav>
 	</header>
 		<div class="container">
 			<aside>
-					<button class="option" onclick="selectPortfolioOption()">Edit Portfolio</button>
-					<button class="option" onclick="selectExhibitionOption()">Edit Exhibition</button>
-					<button class="option" onclick="selectBiographyOption()">Edit Biography</button>
+					<button class="option" type="button" onclick="selectPortfolioOption()">Edit Portfolio</button>
+					<button class="option" type="button" onclick="selectExhibitionOption()">Edit Exhibition</button>
+					<button class="option" type="button" onclick="selectBiographyOption()">Edit Biography</button>
+					<button class="option" type="button" id="disconnectButton">Disconnect</button>
 			</aside>
 			<section class="main" id="rightContent">
 				<div class='contentPortfolio' id='contentPortfolio' style='display:inline'>
@@ -81,7 +79,7 @@ include 'controller.php';
 						<?php
 							$index = 0;
 							while($res_ima = $result_images->fetch_row()){
-										echo '<div class="'. $res_ima[1] .'" id="details" style="display:none;width:150px;" name="contentFile">';
+										echo '<div class="'. $res_ima[1] .'" id="details" style="display:none;width:150px;margin:10px;" name="contentFile">';
 										if(!empty($res_ima[2])){
 											echo '<input src="'.$res_ima[2]. '"type="checkbox" name="checkFile" value="'.$res_ima[3].'" id="'.$res_ima[1] .'">';
 										}
@@ -94,9 +92,9 @@ include 'controller.php';
 					</div>
 					<form class='editFiles' id='editFiles'>
 						<p>Notice: You can edit only one file at once.</p>
-						<button type='button' onclick="checkAll()">select all</button>
-						<button type='button' onclick="uncheckAll()">Unselect all</button>
-						<button type='button' onclick="saveInfoFile()">Save</button>
+						<button type='button' id="checkAll">select all</button>
+						<button type='button' id="uncheckAll">Unselect all</button>
+						<button type='button' id="saveInfoFile">Save</button>
 						<button type='button' onclick="if(confirm('Are you sure you want to delete all these files?')){removeFiles()}">delete</button>
 					</form>
 					<div class='handleFiles' id='handleFile'>

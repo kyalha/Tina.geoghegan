@@ -10,8 +10,8 @@ if (mysqli_connect_errno($con))
 {
   return false;
 }
-$select_bio = "select * from multimedia;";
-$result_bio = mysqli_query($con,$select_bio);
+$select_exhib = "select * from multimedia;";
+$result_exhib = mysqli_query($con,$select_exhib);
 ?>
 	<head>
 		<title>Christina Geoghegan</title>
@@ -31,8 +31,8 @@ $result_bio = mysqli_query($con,$select_bio);
 			<section class="main index">
 				<?php
         $array= "";
-        while ($row = mysqli_fetch_array($result_bio, MYSQL_NUM)) {
-          if($row[0] == "biography"){
+        while ($row = mysqli_fetch_array($result_exhib, MYSQL_NUM)) {
+          if($row[0] == "exhibition"){
             printf($row[1]);
           }
       }

@@ -23,29 +23,7 @@ $result_images = mysqli_query($con,$select_images);
 		<script src="ResponsiveSlides.js-master/responsiveslides.min.js"></script>
 	</head>
 	<body>
-	<header>
-		<nav class="navbar shadow">
-				  <p class="title"> Christina Geoghegan </p>
-				  <ul class= "menu">
-				    <li>
-				    	<a href="/" class="underline" id="home">Home</a>
-				    </li>
-				    <li>
-				        <a href="/print" class="underline" id="portfolio">Portfolio</a>
-				    </li>
-				    <li>
-				        <a href="/web" class="underline" id="exhibition">Exhibition</a>
-				    </li>
-				    <li>
-				        <a href="/bio" class="underline" id="biography">Biography</a>
-				    </li>
-				    <li>
-				        <a href="/contact" class="underline" id="contact">Contact</a>
-				    </li>
-				  </ul>
-
-		</nav>
-	</header>
+	<header><?php require_once 'navbar.php';?></header>
 		<div class="container">
 			<aside style="display:none;">
 			</aside>
