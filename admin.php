@@ -42,11 +42,11 @@ if (!isset($_SESSION["login"])){
 	        </ul>
 	  </nav>
 	</header>
-		<div class="container">
+		<div class="container" id="containerID">
 			<aside>
-					<button class="option" type="button" onclick="selectPortfolioOption()">Edit Portfolio</button>
-					<button class="option" type="button" onclick="selectExhibitionOption()">Edit Exhibition</button>
-					<button class="option" type="button" onclick="selectBiographyOption()">Edit Biography</button>
+					<button class="option" type="button" id="selectPortfolioOption">Edit Portfolio</button>
+					<button class="option" type="button" id="selectExhibitionOption">Edit Exhibition</button>
+					<button class="option" type="button" id="selectBiographyOption">Edit Biography</button>
 					<button class="option" type="button" id="disconnectButton">Disconnect</button>
 			</aside>
 			<section class="main" id="rightContent">
@@ -54,25 +54,25 @@ if (!isset($_SESSION["login"])){
 					<h1>Edit Portfolio</h1>
 					<form class='editFolder' id='editFolder'>
 						<label for="selectDirectory">Folder:</label>
-						<select class="selectDirectory" name="selectDirectory" id="selectDirectory" onchange="displayImages()">
+						<select class="selectDirectory" name="selectDirectory" id="selectDirectory">
 							<option value="Choose a folder" id="optionToRemove">Choose a folder</option>
 							<?php
 								while($res_fol = $result_folders->fetch_row()){
 									echo '<option value="'.$res_fol[1] .'">'. $res_fol[1]. '</option>';
 								 } ?>
 						</select>
-						<button type='button' onclick="addContentSave()">+</button>
-						<button type='button' onclick='addContentUpdate()' id='update'>update</button>
+						<button type='button' id="addContentSave">+</button>
+						<button type='button' id='addContentUpdate' id='update'>update</button>
 						<button type='button' id='delete' onclick="if(confirm('Are you sure you want to delete this folder and all files contained within?')){deleteFolder()}">delete</button>
 						<div class='contentAddFolder' id='contentAddFolder' style='display:none'>
 							<label for="folderNameToSave">Folder name:</label>
 							<input type="text" id="folderNameToSave" placeholder="new folder"></input>
-							<button type="button" id="saveFolderID" onclick="saveFolder()">Save folder</button>
+							<button type="button" id="saveFolderID" id="saveFolder">Save folder</button>
 						</div>
 						<div class='contentUpdateFolder' id='contentUpdateFolder' style='display:none'>
 							<label for="folderNameToUpdate">New folder name:</label>
 							<input type="text" id="newFolderToUpdate" placeholder="new folder"></input>
-							<button type="button" id="updateFolderID" onclick="updateFolder()">Update folder</button>
+							<button type="button" id="updateFolderID" id="updateFolder">Update folder</button>
 						</div>
 					</form>
 					<div class='showThumb' id='showThumb'>
@@ -95,12 +95,12 @@ if (!isset($_SESSION["login"])){
 						<button type='button' id="checkAll">select all</button>
 						<button type='button' id="uncheckAll">Unselect all</button>
 						<button type='button' id="saveInfoFile">Save</button>
-						<button type='button' onclick="if(confirm('Are you sure you want to delete all these files?')){removeFiles()}">delete</button>
+						<button type='button' id="removeFilesID" onclick="if(confirm('Are you sure you want to delete all these files?')){removeFiles()}">delete</button>
 					</form>
 					<div class='handleFiles' id='handleFile'>
 						<div class="thumbImages" id='thumb'>
 								<div class="selectFile" id='selectFile'>
-									<input type="file" name="fileToUploadName" id="fileToUpload" onclick="displayfileInfo()">
+									<input type="file" name="fileToUploadName" id="fileToUpload">
 									<output id="list" class='output'></output>
 									<div id="addingFileInfo" style="display:none;">
 										<label for="title">Tile:</label>
@@ -108,7 +108,7 @@ if (!isset($_SESSION["login"])){
 										<label for="fileDescription">Description:</label>
 										<input id="fileDescription" placeholder="description..."></textarea>
 									</div>
-									<button type='button' onclick="saveFiles()">Save files</button>
+									<button type='button' id="saveFiles">Save files</button>
 								</div>
 						</div>
 					</div>

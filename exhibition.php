@@ -24,7 +24,7 @@ $result_exhib = mysqli_query($con,$select_exhib);
 	</head>
 	<body>
 	<header><?php require_once 'navbar.php';?></header>
-		<div class="container">
+		<div class="container" id="containerID">
 			<aside style="display:none;">
 			</aside>
 
