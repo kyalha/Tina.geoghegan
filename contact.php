@@ -18,25 +18,36 @@ $result_bio = mysqli_query($con,$select_bio);
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="style/index.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-		<!--<link href='https://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>-->
-		<script src="js/user.js"></script>
-		<script src="ResponsiveSlides.js-master/responsiveslides.min.js"></script>
 	</head>
 	<body>
 	<header><?php require_once 'navbar.php';?></header>
 		<div class="container" id="containerID">
-			<aside style="display:none;">
-			</aside>
-
+			<aside style="display:none;"></aside>
 			<section class="main index">
-        <form action="" method="post">
-          <label for="name" style="display:none;">name</label>
-          <input type="text" id="name" placeholder="your name"></input>
-          <label for="email" style="display:none;">email</label>
+        <form action="" method="post" align="center" id="contactID">
+          <div class="block">
+            <p>Do not hesitate to contact me!</p>
+            <label for="name">Your name</label>
+            <input type="text" id="name" placeholder="your name"></input>
+          </div>
+          <div class="block">
+          <label for="email">Your email</label>
           <input type="text" id="email" placeholder="your email"></input>
-          <label for="description" style="display:none;">description</label>
-          <input type="text" id="description" placeholder="your description"></input>
+          </div>
+          <div class="block" id="textArea">
+          <label for="description">Message</label>
+          <textarea form="contactID" id="description" placeholder="your description"></textarea>
+          </div>
+          <div class="block">
+            <label for="selectSubject">Subject</label>
+            <select name="selection" id="selectSubject">
+              <option value="Job Inquiry">Job Inquiry</option>
+              <option value="General Question">General Question</option>
+            </select>
+          </div>
+          <div class="block">
           <input type="submit" class="submit" value="Send">
+          </div>
         </form>
 			</section>
 

@@ -1,13 +1,91 @@
+ #enlarge, #close{
+   margin-left: 10px;
+  position: absolute;
+  margin-top: 10px;
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+  background-color:white;
+  border: 1px solid black;
+  border radius: 20px;
+  z-index: 10;
+}
+img#left, img#right {
+  bottom: 2%;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+}
+img#left {
+  left: 45%;
+}
+img#right {
+  right: 45%;
+}
+button p, button img {
+  display:inline-block
+}
+button img {
+  margin: 0;
+  padding: 0;
+}
+button p {
+  font-size: 1.25em;
+  margin: 0;
+  padding-left: 10px;
+}
+aside {
+  margin-left: 35px;
+  width: 200px;
+}
+aside button{
+  text-align: left;
+  padding-left: 15px;
+  display: inline-flex;
+}
+aside button .folderIcon{
+background: url('../images/icons/folder.png') center top no-repeat;
+width: 20px;
+height: 20px;
+background-size: 100%;
+}
+aside button:hover .folderIcon{
+    background: url('../images/icons/folder-open.png') center top no-repeat;
+    width: 20px;
+    height: 20px;
+    background-size: 100%;
+}
+.main {
+  order: 2;
+  display: flex;
+  flex-grow: 3;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+}
 
+.rslides_tabs {
+  display: flex;
+  padding: 10px;
+}
+
+.container{
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+}
 p,h3,h4,pre {
   text-align: left;
   max-width: 100%;
-  margin: 0 auto 20px;
-  }
+}
 
 .rslides {
   margin: 0 auto 40px;
-  }
+  height: auto;
+}
 
 #slider2,
 #slider3 {
@@ -15,7 +93,7 @@ p,h3,h4,pre {
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   margin: 0 auto;
-  }
+}
 
 .rslides_tabs {
   list-style: none;
@@ -31,13 +109,13 @@ p,h3,h4,pre {
   padding: 10px 0;
   text-align: center;
   width: 100%;
-  }
+}
 
 .rslides_tabs li {
   display: inline;
   float: none;
   margin-right: 1px;
-  }
+}
 
 .rslides_tabs a {
   width: auto;
@@ -46,27 +124,18 @@ p,h3,h4,pre {
   height: auto;
   background: transparent;
   display: inline;
-  }
+}
 
 .rslides_tabs li:first-child {
   margin-left: 0;
-  }
+}
 
 .rslides_tabs .rslides_here a {
   background: rgba(255,255,255,.1);
   color: #fff;
   font-weight: bold;
-  }
-
-a {
-  color: #fff;
-  text-decoration: none;
-  }
-
-
-.footer {
-  font-size: 11px;
-  }
+  margin: 10px;
+}
 
 /* Callback example */
 
@@ -74,18 +143,18 @@ h3 {
   font: 20px/30px "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
   color: #fff;
-  }
+}
 
 .events {
   list-style: none;
-  }
+}
 
 .callbacks_container {
   margin-bottom: 50px;
   position: relative;
   float: left;
   width: 100%;
-  }
+}
 
 .callbacks {
   position: relative;
@@ -94,14 +163,14 @@ h3 {
   width: 100%;
   padding: 0;
   margin: 0;
-  }
+}
 
 .callbacks li {
   position: absolute;
   width: 100%;
   left: 0;
   top: 0;
-  }
+}
 
 .callbacks img {
   display: block;
@@ -110,7 +179,7 @@ h3 {
   height: auto;
   width: 100%;
   border: 0;
-  }
+}
 
 .callbacks .caption {
   display: block;
@@ -127,7 +196,7 @@ h3 {
   padding: 10px 20px;
   margin: 0;
   max-width: none;
-  }
+}
 
 .callbacks_nav {
   position: absolute;
@@ -143,20 +212,20 @@ h3 {
   width: 38px;
   background: transparent url("themes/themes.gif") no-repeat left top;
   margin-top: -45px;
-  }
+}
 
 .callbacks_nav:active {
   opacity: 1.0;
-  }
+}
 
 .callbacks_nav.next {
   left: auto;
   background-position: right top;
   right: 0;
-  }
+}
 
 #slider3-pager a {
-  display: inline-block;
+  display: inline-flex;
 }
 
 #slider3-pager img {
@@ -175,8 +244,8 @@ h3 {
 @media screen and (max-width: 600px) {
   h1 {
     font: 24px/50px "Helvetica Neue", Helvetica, Arial, sans-serif;
-    }
+  }
   .callbacks_nav {
     top: 47%;
-    }
   }
+}

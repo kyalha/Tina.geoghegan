@@ -126,19 +126,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 	}
 
-	if(document.getElementById('selectPasswordOption') !=null){
-		document.getElementById("selectPasswordOption").addEventListener("click", function(){
-			document.getElementById('contentPortfolio').style.display = 'none';
-			document.getElementById('contentExhibition').style.display = 'none';
-			document.getElementById('contentBiography').style.display = 'none';
-		});
-	}
+	document.getElementById("selectPortfolioOption").className = "option buttonSelected";
 
+	function resetButtonSelected(idButton){
+		document.getElementById(idButton).className = "option";
+	}
 	if(document.getElementById('selectPortfolioOption') !=null){
-		document.getElementById("selectPortfolioOption").addEventListener("click", function(){
+			document.getElementById("selectPortfolioOption").addEventListener("click", function(){
 			document.getElementById('contentPortfolio').style.display = 'inline';
 			document.getElementById('contentExhibition').style.display = 'none';
 			document.getElementById('contentBiography').style.display = 'none';
+			var d = document.getElementById("selectPortfolioOption");
+			d.className = "option buttonSelected";
+			resetButtonSelected('selectExhibitionOption');
+			resetButtonSelected('selectBiographyOption');
 		});
 	}
 
@@ -147,6 +148,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			document.getElementById('contentPortfolio').style.display = 'none';
 			document.getElementById('contentExhibition').style.display = 'inline';
 			document.getElementById('contentBiography').style.display = 'none';
+			var d = document.getElementById("selectExhibitionOption");
+			d.className = "option buttonSelected";
+			resetButtonSelected('selectPortfolioOption');
+			resetButtonSelected('selectBiographyOption');
 		});
 	}
 
@@ -155,19 +160,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			document.getElementById('contentPortfolio').style.display = 'none';
 			document.getElementById('contentExhibition').style.display = 'none';
 			document.getElementById('contentBiography').style.display = 'inline';
+			var d = document.getElementById("selectBiographyOption");
+			d.className = "option buttonSelected";
+			resetButtonSelected('selectPortfolioOption');
+			resetButtonSelected('selectExhibitionOption');
 		});
 	}
 
 	if(document.getElementById('addContentSave') !=null){
 		document.getElementById("addContentSave").addEventListener("click", function(){
-			document.getElementById('contentAddFolder').style.display = 'inline';
+			document.getElementById('contentAddFolder').style.display = 'block';
 			document.getElementById('contentUpdateFolder').style.display = 'none';
 		});
 	}
 
 	if(document.getElementById('addContentUpdate') !=null){
 		document.getElementById("addContentUpdate").addEventListener("click", function(){
-			document.getElementById('contentUpdateFolder').style.display = 'inline';
+			document.getElementById('contentUpdateFolder').style.display = 'block';
 			document.getElementById('contentAddFolder').style.display = 'none';
 		})
 	};
@@ -233,20 +242,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			var i;
 			var selectorDir = document.getElementById("selectDirectory");
 			var folderSelected = selectorDir.options[selectorDir.selectedIndex].value;
+			var divsClass = document.getElementsByClassName(folderSelected);
 			for (i = 0; i < selectorDir.length; i++) {
 				var allDivs= document.getElementsByTagName("div");
 				for (var j = 0; j < allDivs.length; j++) {
 					if(allDivs[j].id == "details"){
 						if(allDivs[j].className == folderSelected){
 							allDivs[j].style.display = 'inline';
+							document.getElementById('noImages').style.display= "none";
+							document.getElementById('enlarge').style.display="inline";
 						}else {
 							allDivs[j].style.display = 'none';
+							document.getElementById('noImages').style.display= "none";
+							document.getElementById('enlarge').style.display="inline";
 						}
 					}
 				}
 				if (selectorDir.options[i].id == 'optionToRemove' ){
 					selectorDir.remove(i);
 				}
+			}
+			if(divsClass.length == 0 || divsClass == undefined){
+					document.getElementById('noImages').innerHTML= '<p style="padding: 10px;"> No images to display </p>';
+					document.getElementById('noImages').style.display= "inline";
+					document.getElementById('enlarge').style.display="none";
 			}
 		});
 	}

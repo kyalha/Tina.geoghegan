@@ -18,9 +18,6 @@ $result_images = mysqli_query($con,$select_images);
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="style/index.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-		<!--<link href='https://fonts.googleapis.com/css?family=Calligraffitti' rel='stylesheet' type='text/css'>-->
-		<script src="js/user.js"></script>
-		<script src="ResponsiveSlides.js-master/responsiveslides.min.js"></script>
 	</head>
 	<body>
 	<header><?php require_once 'navbar.php';?></header>
