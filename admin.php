@@ -93,9 +93,7 @@ if (!isset($_SESSION["login"])){
 				</div>
 				<form class='editFiles' id='editFiles'>
 					<p>Notice: You can edit only one file at once.</p>
-					<button type='button' id="checkAll">select all</button>
-					<button type='button' id="uncheckAll">Unselect all</button>
-					<button type='button' id="saveInfoFile">Save</button>
+					<button type='button' id="saveInfoFile">Update</button>
 					<button type='button' id="removeFilesID" onclick="if(confirm('Are you sure you want to delete all these files?')){removeFiles()}">delete</button>
 				</form>
 				<div class='handleFiles' id='handleFile'>

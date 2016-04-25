@@ -5,7 +5,7 @@
             <a href="index.php" class="underline" id="home">Home</a>
           </li>
           <li>
-              <a href="portfolio/portfolio.php" class="underline" id="potfolio">Portfolio</a>
+              <a href="portfolio.php" class="underline" id="potfolio">Portfolio</a>
           </li>
           <li>
               <a href="biography.php" class="underline" id="biography">Biography</a>

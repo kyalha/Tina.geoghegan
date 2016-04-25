@@ -61,22 +61,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			document.getElementById('addingFileInfo').style.display = 'inline';
 		});
 	}
-	if(document.getElementById('checkAll') !=null){
-		document.getElementById("checkAll").addEventListener("click", function(){
-			var checkboxes = document.getElementsByName('checkFile');
-			for (var i = 0; i < checkboxes.length; i++) {
-				checkboxes[i].checked  = true;
-			}
-		});
-	}
-	if(document.getElementById('uncheckAll') !=null){
-		document.getElementById("uncheckAll").addEventListener("click", function(){
-			var checkboxes = document.getElementsByName('checkFile');
-			for (var i = 0; i < checkboxes.length; i++) {
-				checkboxes[i].checked  = false;
-			}
-		});
-	}
 
 	if(document.getElementById('loginName') !=null){
 		document.getElementById("loginButton").addEventListener("click", function(){
@@ -250,11 +234,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 						if(allDivs[j].className == folderSelected){
 							allDivs[j].style.display = 'inline';
 							document.getElementById('noImages').style.display= "none";
-							document.getElementById('enlarge').style.display="inline";
 						}else {
 							allDivs[j].style.display = 'none';
 							document.getElementById('noImages').style.display= "none";
-							document.getElementById('enlarge').style.display="inline";
 						}
 					}
 				}
@@ -265,7 +247,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			if(divsClass.length == 0 || divsClass == undefined){
 					document.getElementById('noImages').innerHTML= '<p style="padding: 10px;"> No images to display </p>';
 					document.getElementById('noImages').style.display= "inline";
-					document.getElementById('enlarge').style.display="none";
 			}
 		});
 	}

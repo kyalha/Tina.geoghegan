@@ -71,13 +71,13 @@ nav a {
 	-webkit-flex: 2;
 	flex: 2;
 }
- ul {
+ .menu ul {
     list-style-type: none;
 }
-li {
+.menu li {
     float: left;
 }
-li a {
+.menu li a {
     text-align: center;
     padding: 1em;
     text-decoration: none;
@@ -111,6 +111,8 @@ aside {
 }
 .index{
     width: 100%;
+    margin-top: 40px;
+    margin-bottom: 20px;
 }
 .main {
 	order:2;
@@ -175,40 +177,14 @@ aside .option {
   border: none;
   background-color: #ffffff;
 }
-  .rslides {
-    position: relative;
-    list-style: none;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    }
-
-  .rslides li {
-    -webkit-backface-visibility: hidden;
-    position: absolute;
-    display: none;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    }
-
-  .rslides li:first-child {
-    position: relative;
-    display: block;
-    float: left;
-    }
-
-  .rslides img {
-    display: block;
-    height: auto;
-    float: left;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    }
+.rslides li {
+  list-style: none;
+}
+.rslides img {
+  margin-right: auto;
+  margin-left: auto;
+  width: initial;
+}
 /* ====================== footer ================= */
 footer  {
 	order: 3;
@@ -219,11 +195,11 @@ footer  {
 	font-size:1.1em;
 	display: flex;
 	justify-content: center;
-  padding-bottom: 0px;
-  margin-bottom: 0px;
-  left: 0;
   bottom: 0;
   height: 50px;
+}
+ .homepage{
+  position:absolute;
 }
 footer .icon {
 	height:30px;
@@ -238,4 +214,59 @@ footer .icon:hover {
 }
 footer p{
 	padding-left: 15px;
+}
+  aside ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  aside li {
+    border-bottom: 1px solid #ccc;
+    list-style: none;
+  }
+
+  aside li:last-child {
+    border: none;
+  }
+
+  aside li p {
+    text-decoration: none;
+    color: #000;
+
+    -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+    transition: font-size 0.3s ease, background-color 0.3s ease;
+    display: block;
+  }
+
+  aside li p:hover {
+    font-size: 15px;
+    background: #f6f6f6;
+  }
+  .showThumb {
+      display: flex;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      flex-wrap: wrap;
+  }
+.showThumb li {
+  list-style: none;
+}
+@keyframes slowDisplay {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  1% {
+    display: block;
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
