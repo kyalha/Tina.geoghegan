@@ -38,10 +38,6 @@ $result_images = mysqli_query($con,$select_images);
 			</section>
 
 		</div>
-		<footer class="homepage">
-			 	<a href="https://www.facebook.com/tinageogheganart/?fref=ts" target="_blank" ><img src="images/icons/fb.png" class="icon element"></a>
-				<a href="https://ie.linkedin.com/in/tinageoghegan" target="_blank"><img src="images/icons/linkedin.png" class="icon element"></a>
-				<p>Christina Geoghegan - 2016</p>
-		</footer>
+    <?php require_once 'footer.php';?>
 	</body>
 </html>

@@ -63,7 +63,7 @@ $allFolders = [];
           $iFolder = 0;
           while($res_fol = $result_folders->fetch_row()){
             $allFolders[$iFolder] = $res_fol[1];
-            echo '<button id="'.$res_fol[1].'" class="option" value="'.$res_fol[1].'" onclick="displayImages(this.value)"><p>'.$res_fol[1] .'</p></button>';
+            echo '<button id="'.$res_fol[1].'" class="option" value="'.$res_fol[1].'">'.$res_fol[1] .'</button>';
             $iFolder++;
           }
           ?>
@@ -80,9 +80,18 @@ $allFolders = [];
           </div>
           <?php
           echo '<div class="rslides" id="slider3">';
+          $firstTime = true;
           while($row = $result_images->fetch_assoc()) {
+            if($firstTime){
+              $folderName = $row["folder"];
+              $firstTime = false;
+              echo '<p id="albumTitle" style="display:none"> - '. $folderName .' - </p>';
+            }
+            if($folderName != $row["folder"]){
+              $folderName = $row["folder"];
+              echo '<p id="albumTitle" style="display:none"> - '. $folderName .' - </p>';
+            }
               echo '<div class="'. $row["folder"] .'" id="details" style="width:100%;display:none;" name="slideImage">';
-              echo '<p id="albumTitle'. $row["name"].'" style="display:none"> - '. $row["folder"] .' - </p>';
               echo '<img src="'.$row["path"].'" alt="' . $row["name"] .'" id="' . $row["name"] .'" class="slide"> <div class="descriptionDetails"  id="description' . $row["name"].'" style="position:absolute; background-color:black; color:white; opacity: 0.8; width:100%; height: 100%; bottom:0; left:0;right:0;height:30px; padding-left:40%; padding-top:5px;">'. $row["description"] .'</div>';
               echo '</div>';
           }
@@ -100,10 +109,6 @@ $allFolders = [];
         </div>
       </section>
     </div>
-    <footer>
-      <a href="/bio"><img src="images/icons/fb.png" class="icon element"></a>
-      <a href="/bio"><img src="images/icons/linkedin.png" class="icon element"></a>
-      <p>Christina Geoghegan - 2016</p>
-    </footer>
+<?php require_once 'footer.php';?>
   </body>
   </html>

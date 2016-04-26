@@ -94,7 +94,7 @@ if (!isset($_SESSION["login"])){
 				<form class='editFiles' id='editFiles'>
 					<p>Notice: You can edit only one file at once.</p>
 					<button type='button' id="saveInfoFile">Update</button>
-					<button type='button' id="removeFilesID" onclick="if(confirm('Are you sure you want to delete all these files?')){removeFiles()}">delete</button>
+					<button type='button' id="removeFilesID">delete</button>
 				</form>
 				<div class='handleFiles' id='handleFile'>
 					<div class="thumbImages" id='thumb'>
@@ -142,10 +142,6 @@ if (!isset($_SESSION["login"])){
 			<span><?php echo $error; ?></span>
 		</section>
 	</div>
-	<footer>
-		<a href="/bio"><img src="images/icons/fb.png" class="icon element"></a>
-		<a href="/bio"><img src="images/icons/linkedin.png" class="icon element"></a>
-		<p>Christina Geoghegan - 2016</p>
-	</footer>
+    <?php require_once 'footer.php';?>
 </body>
 </html>
