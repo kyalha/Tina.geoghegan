@@ -20,7 +20,7 @@ $result_images = mysqli_query($con,$select_images);
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="js/slideshow.js"></script>
 	</head>
-	<body>
+	<body class="homepage">
 	<header><?php require_once 'navbar.php';?></header>
 		<div class="container">
 			<aside style="display:none;"></aside>

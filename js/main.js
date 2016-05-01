@@ -181,7 +181,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			var data = "biographyID="+encodeURIComponent(newText);
 			xhttp.open("POST", "/Tina.geoghegan/controller.php", true);
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			alert(data);
 			xhttp.send(data);
 			alert("Content of biography has been updated.");
 			location.reload(true);
@@ -220,14 +219,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	}
 
 	if(document.getElementById('saveInfoFile') !=null){
-			var oneChecked = false;
-			var inputs = document.getElementsByTagName('input');
-			for (var i = 0; i < inputs.length; i++) {
-				if(inputs[i].type == "checkbox" && inputs[i].checked == true){
-					oneChecked =true;
-				}
-			}
 			document.getElementById("saveInfoFile").addEventListener("click", function(){
+				var oneChecked = false;
+				var inputs = document.getElementsByTagName('input');
+				for (var i = 0; i < inputs.length; i++) {
+					if(inputs[i].type == "radio" && inputs[i].checked == true){
+						oneChecked =true;
+					}
+				}
 				if(oneChecked){
 					var array_contentFile =  document.getElementsByName("contentFile");
 					var xhttp = new XMLHttpRequest();
@@ -247,17 +246,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 						if(!isEmpty(newDescription)){
 							data += "&updateDescription=true&newDescription="+newDescription+"&oldDescription="+oldDescription+"&id="+id;;
 						}
-
 					}
 					alert("Informations of the file has been changed.")
 					xhttp.open("POST", "/Tina.geoghegan/controller.php?" + data, true);
 					xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 					xhttp.send(data);
 					location.reload(true);
-			}
-			else{
+			}else{
 			alert("Choose one file at least")
-		}
+			}
 	});
 }
 
@@ -294,9 +291,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					var folderSelected = selectorDir.options[selectorDir.selectedIndex].value;
 					var xhttp = new XMLHttpRequest();
 					var inputs = document.getElementsByTagName("input");
-					var checked = []; //will contain all checked checkboxes
+					var checked = [];
 					for (var i = 0; i < inputs.length; i++) {
-						if (inputs[i].type == "checkbox" && inputs[i].id == folderSelected) {
+						if (inputs[i].type == "radio" && inputs[i].id == folderSelected) {
 							if (inputs[i].checked) {
 								checked.push(inputs[i]);
 							}

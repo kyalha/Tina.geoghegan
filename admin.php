@@ -19,7 +19,7 @@ if (!isset($_SESSION["login"])){
 	<script type="text/javascript" src="js/main.js" language="JavaScript"></script>
 	<script src="ckeditor/ckeditor.js"></script>
 </head>
-<body>
+<body class="admin">
 	<header>
 		<nav class="navbar shadow">
 			<p class="title"> Christina Geoghegan </p>
@@ -49,7 +49,7 @@ if (!isset($_SESSION["login"])){
 			<button class="option" type="button" id="selectBiographyOption">Biography</button>
 			<button class="option" type="button" id="disconnectButton">Disconnect</button>
 		</aside>
-		<section class="main" id="rightContent">
+		<section class="main portfolioAdmin" id="rightContent">
 			<div class='contentPortfolio' id='contentPortfolio' style='display:inline'>
 				<h1>Edit Portfolio</h1>
 				<form class='editFolder' id='editFolder'>
@@ -61,7 +61,7 @@ if (!isset($_SESSION["login"])){
 							echo '<option value="'.$res_fol[1] .'">'. $res_fol[1]. '</option>';
 						} ?>
 					</select>
-					<button type='button' id="addContentSave">+</button>
+					<button type='button' id="addContentSave">New folder</button>
 					<button type='button' id='addContentUpdate' id='update'>update</button>
 					<button type='button' id='delete' onclick="if(confirm('Are you sure you want to delete this folder and all files contained within?')){deleteFolder()}">delete</button>
 					<div class='contentAddFolder' id='contentAddFolder' style='display:none'>
@@ -80,9 +80,9 @@ if (!isset($_SESSION["login"])){
 					<?php
 					$index = 0;
 					while($res_ima = $result_images->fetch_row()){
-						echo '<div class="'. $res_ima[1] .'" id="details" style="display:none;width:150px;margin:10px;" name="contentFile">';
+						echo '<div class="'. $res_ima[1] .'" id="details" style="display:none;width:150px; height: 160px;margin:10px;" name="contentFile">';
 						if(!empty($res_ima[2])){
-							echo '<input src="'.$res_ima[2]. '"type="checkbox" name="checkFile" value="'.$res_ima[3].'" id="'.$res_ima[1] .'">';
+							echo '<input src="'.$res_ima[2]. '"type="radio" name="checkFile" value="'.$res_ima[3].'" id="'.$res_ima[1] .'">';
 						}
 						echo '<img src="'.$res_ima[2].'" alt="' . $res_ima[3] .'" id="' . $res_ima[0] .'" style="width:100px;height:100px;padding-right:10px;">';
 						echo '<input type="text" name="fileNameInfo" id ="imageName'.$index.'" placeholder="' .$res_ima[3] .'"/>';

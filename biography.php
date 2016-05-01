@@ -18,19 +18,8 @@ $result_bio = mysqli_query($con,$select_bio);
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="style/index.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <style>
-      .main{
-          margin: 100px;
-          word-wrap: break-word;
-          margin-top: 50px;
-          margin-left: 20%;
-          margin-right: 20%;
-          margin-bottom: 50px;
-      }
-
-    </style>
 	</head>
-	<body>
+	<body class="textContent">
 	<header><?php require_once 'navbar.php';?></header>
 		<div class="container" id="containerID">
 			<aside style="display:none;">	</aside>

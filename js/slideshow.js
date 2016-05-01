@@ -20,7 +20,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     for (var i = 0; i < images.length; i++) {
       if(i == index){
         images[i].style.opacity = "1";
+        images[i].style.filter = "alpha(opacity=100)";
         images[i].style.transition = "opacity 2s ease-in-out";
+        images[i].style.webkittransition ="opacity 2s ease-in-out";
+        images[i].style.moztransition ="opacity 2s ease-in-out";
+        images[i].style.otransition ="opacity 2s ease-in-out";
       }
     }
     index++;

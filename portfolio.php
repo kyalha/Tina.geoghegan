@@ -26,7 +26,6 @@ $allFolders = [];
   <title>Christina Geoghegan</title>
   <link rel="stylesheet" href="style/responsiveslides.css">
   <link rel="stylesheet" href="style/index.css" type="text/css">
-  <link rel="stylesheet" href="style/portfolio.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="js/portoflio_user.js"></script>
   <script>
@@ -69,14 +68,14 @@ $allFolders = [];
           ?>
       </div>
       </aside>
-
       <section class="portfolio" id="rightContent">
-          <div class="fullScreen" id="fullScreenID">
-            <img id="imageToshow" src="" />
-            <img id="enlarge" src="images/icons/enlarge.png" onclick="appearFullScreen(indexImage)" style="display:none"/>
+          <div class="fullScreen" id="fullScreenID" style="height:0;">
+            <img id="imageToshow"/>
+            <img id="enlarge" src="images/icons/enlarge.png" onclick="appearFullScreen(false)" style="display:none"/>
             <img id="close" src="images/icons/close.png" onclick="leaveFullScreen()" style="display:none"/>
-            <img id="left" src="images/icons/arrow-left.png" onclick="changePicture('left')" style="display:none"/>
-            <img id="right" src="images/icons/arrow-right.png" onclick="changePicture('right')" style="display:none"/>
+            <img id="left" src="images/icons/arrow-left.png" onclick="changePictureFull('left')" style="display:none"/>
+            <p id="countSlides" style="display:none"></p>
+            <img id="right" src="images/icons/arrow-right.png" onclick="changePictureFull('right')" style="display:none"/>
           </div>
           <?php
           echo '<div class="rslides" id="slider3">';
@@ -92,7 +91,7 @@ $allFolders = [];
               echo '<p id="albumTitle" style="display:none"> - '. $folderName .' - </p>';
             }
               echo '<div class="'. $row["folder"] .'" id="details" style="width:100%;display:none;" name="slideImage">';
-              echo '<img src="'.$row["path"].'" alt="' . $row["name"] .'" id="' . $row["name"] .'" class="slide"> <div class="descriptionDetails"  id="description' . $row["name"].'" style="position:absolute; background-color:black; color:white; opacity: 0.8; width:100%; height: 100%; bottom:0; left:0;right:0;height:30px; padding-left:40%; padding-top:5px;">'. $row["description"] .'</div>';
+              echo '<img src="'.$row["path"].'" alt="' . $row["name"] .'" id="' . $row["name"] .'" class="slide"> <div class="descriptionDetails"  id="description' . $row["name"].'" style="position:absolute; background-color:black; color:white; opacity: 0.5; width:100%; height: 100%; bottom:0; left:0;right:0;height:30px; padding-left:40%; padding-top:5px;">'. $row["description"] .'</div>';
               echo '</div>';
           }
           echo '</div>';
